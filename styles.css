@@ -1,0 +1,45 @@
+body {
+    background-color: rgb(21, 24, 26);
+  }
+  
+  h1 {
+    color: lightcoral;
+    text-align: center;
+  }
+  p {
+    font-family: verdana;
+    font-size: 20px;
+  }
+  .flex-container {
+    display: flex;
+    align-content: space-between;
+    justify-content: center;
+    
+    
+  }
+  
+  .flex-container > div {
+    background-color: none;
+    margin: 5px;
+    padding: 5px;
+    font-size: 30px;
+    align-content: center;
+
+  }
+  .container-sm > p {
+    margin: 5px;
+    padding: 5px;
+    font-size: 30px;
+  }
+
+  
+  .card-body {
+    margin: 5px;
+    padding: 5px;
+  }
+  
+#demo1{
+  text-align: center;
+  color:black;
+}
+ 
