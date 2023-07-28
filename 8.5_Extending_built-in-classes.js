@@ -27,4 +27,3 @@ class NewString extends String {
 let astring = new NewString("HELLO");
 console.log(astring.toLowerCase()); // this both will work but without the construtor of the child class 
 console.log(astring.newMethod());
-
