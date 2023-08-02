@@ -42,7 +42,7 @@ new User().hello();
 
 /* here is the code with getter and setter method */
 
-/* class User {
+class User {
 
 
     constructor(name) {
@@ -67,5 +67,5 @@ new User().hello();
 let user = new User("John");
 alert(user.name); // John
 
-user = new User(""); */
+user = new User("");
 
