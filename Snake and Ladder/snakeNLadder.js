@@ -11,14 +11,27 @@ function Dics() {
 
 
 
-function game(board) {
+function game() {
     let player = [];
 
     let currentPosition = 0;
 
+    while (currentPosition!== 100) {
+        let dic = Dics();
 
+        currentPosition = currentPosition + dic;
+
+        player.push(currentPosition);
+
+        if (player.includes(100)) {
+            console.log("you win");
+        }
     }
+    console.log("hello");
+
 }
+
+game();
 
 let board = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
@@ -32,4 +45,3 @@ let board = [
     81, 82, 83, 84, 85, 86, 87, 88, 89, 90,
     91, 92, 93, 94, 95, 96, 97, 98, 99, 100
 ];
-game(board);
