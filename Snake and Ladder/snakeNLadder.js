@@ -5,34 +5,35 @@ Requirements to be satisfied
 - Snakes and Ladders: Define specific positions for snakes and ladders, enabling automatic sliding or climbing.
 - Winning Condition: Declare the first player reaching the last square as the winner. */
 
+
+/* this is the dics */
 function Dics() {
     return Math.ceil(Math.random() * 6);
+
 }
 
 
 
-function game() {
+function game(board) {
     let player = [];
-
+    let dics = 0;
     let currentPosition = 0;
 
-    while (currentPosition!== 100) {
-        let dic = Dics();
+    for (let i = 0; i < board.length; i++) {
 
-        currentPosition = currentPosition + dic;
+        dics = Dics();
+        
+        currentPosition = currentPosition + board[i] + dics;
 
-        player.push(currentPosition);
+        board[i] = board[currentPosition];
 
-        if (player.includes(100)) {
-            console.log("you win");
-        }
+        player[currentPosition];
     }
-    console.log("hello");
-
+    console.log(currentPosition);
 }
 
-game();
 
+/* this is the board  */
 let board = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
     11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
@@ -45,3 +46,5 @@ let board = [
     81, 82, 83, 84, 85, 86, 87, 88, 89, 90,
     91, 92, 93, 94, 95, 96, 97, 98, 99, 100
 ];
+
+game(board);
