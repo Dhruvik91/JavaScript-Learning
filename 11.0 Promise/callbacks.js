@@ -1,17 +1,34 @@
+/* Callbacks:- They are function which are used to make the async code.
 
-// A function that takes a callback and calls it after a delay
-function doSomethingAsync(callback) {
-    console.log("Async task done!");
-    setTimeout(function() {
-     
-      callback(); // Call the provided callback function
-    }, 1000);
-  }
+In the below code, i m going to learn about the callbacks. how it works ?   
+
+
+*/
+
+function register() {
+
+  setTimeout(() => {
+    console.log("Register Done")
   
-  // A callback function that is passed to doSomethingAsync
-  function afterAsyncTask() {
-    console.log("Callback executed after async task");
-  }
-  
-  // Calling the main function with the callback
-  doSomethingAsync(afterAsyncTask);
+  },1000)
+};
+
+function signup() {
+  console.log("signup Done")
+}
+
+function signin() {
+  console.log("signIn Done")
+}
+
+function gotData() {
+  console.log("user data Done")
+}
+
+register();
+signup();
+signin()
+gotData();
+
+console.log("some another things");
+
