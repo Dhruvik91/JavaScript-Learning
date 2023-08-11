@@ -13,16 +13,19 @@ function register(callback) {
   }, 1000)
 };
 
-function signup() {
+function signup(callback) {
 
   setTimeout(() => {
     console.log("SignUp Done")
-    
+    callback();
   }, 2000)
 };
 
-function signin() {
-  console.log("signIn Done")
+function signin(callback) {
+  setTimeout(() => {
+    console.log("SignIn Done")
+    callback();
+  }, 2000)
 }
 
 function gotData() {
@@ -30,9 +33,12 @@ function gotData() {
 }
 
 register(() => {
-  signup()
-  signin()
-  gotData()
+  signup(() => {
+    signin(() => {
+      gotData()
+    })
+  })
+
 }
 );
 
