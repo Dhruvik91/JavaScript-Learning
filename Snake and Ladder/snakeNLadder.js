@@ -26,10 +26,15 @@ function game(board) {
         currentPosition = currentPosition + board[i] + dics;
 
         board[i] = board[currentPosition];
+        console.log("value of the board",board[i]);
 
-        player[currentPosition];
+
+
+        player.push([board[i]]);
+        if(player.includes(100) || player.includes())
+        console.log("The player",player);
     }
-    console.log(currentPosition);
+    
 }
 
 
