@@ -3,7 +3,7 @@ They are the new and easy version of callback hell.  */
 
 
 function register() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         setTimeout(() => {
             console.log("Register Done")
             resolve();
@@ -14,7 +14,7 @@ function register() {
 
 function signup() {
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         setTimeout(() => {
             console.log("Signup Done")
             resolve();
@@ -22,11 +22,13 @@ function signup() {
     })
 };
 
-function signin(callback) {
-    setTimeout(() => {
-        console.log("SignIn Done")
-        callback();
-    }, 2000)
+function signin() {
+    return new Promise((reject) => {
+        setTimeout(() => {
+            
+            reject(console.log("SignIN Done"));
+        }, 1000);
+    })
 }
 
 function gotData() {
@@ -41,4 +43,9 @@ function gotData() {
     })
 }); */
 
-register();
+register()
+.then(signup);  // here the "then" is useful for the chanining with the promise. In short, it handles the resolve from the promise.
+                // and also "then" keyword execute the first function 
+
+signin()
+.catch(gotData);
