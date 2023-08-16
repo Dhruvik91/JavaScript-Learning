@@ -25,4 +25,4 @@ let promise = new Promise((resolve, reject) => {
 });
 
 console.log(promise);
-/* in short, we are using chaining and in each handler, we are returning a new Promise to it. */
+/* in short, we are using chaining, and in each handler, we are returning a new Promise to it. */
