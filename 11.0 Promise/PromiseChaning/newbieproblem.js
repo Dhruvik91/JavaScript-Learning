@@ -11,11 +11,11 @@ let promise = new Promise((resolve, reject) => {
 
 });
 
-promise.then(result => result * 2);
+console.log(promise.then(result => result * 2));
 
-promise.then(result => result * 2);
+console.log(promise.then(result => result * 2));
 
-promise.then(result => result * 2);
+console.log(promise.then(result => result * 2));
 
 /* okay now i get it, what was my problem,
 
