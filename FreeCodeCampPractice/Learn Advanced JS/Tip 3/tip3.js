@@ -1,4 +1,4 @@
-/* Tip 5: Use console.group() with Multiple console.log()s to Group Related Items to the Console */
+/* Tip 3: Use console.group() with Multiple console.log()s to Group Related Items to the Console */
 
 console.group('Bio:');
 
