@@ -8,3 +8,15 @@
 
 console.log(myArr);  // it will display the data as usual  
 console.table(myArr);  // it will display the data into index and value form.
+
+
+/* It also works same for the object */
+
+const myObj = {
+    name: 'Kolade',
+    luckyNum: 10,
+    lovesFootball: true,
+  };
+  
+  console.log(myObj);
+  console.table(myObj);
