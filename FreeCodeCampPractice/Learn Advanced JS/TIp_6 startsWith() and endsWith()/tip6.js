@@ -15,9 +15,16 @@ const files = [
     'image.jpg',
     'script.js',
     'docs.txt',
-  ];
-  
-  // Get .txt files
-  const textFiles = files.filter((file) => file.endsWith('.txt'));
-  console.log(textFiles); // [ 'text.txt', 'document.txt', 'docs.txt' ]
+];
+
+// Get .txt files
+const textFiles = files.filter((file) => file.endsWith('.txt'));
+console.log(textFiles); // [ 'text.txt', 'document.txt', 'docs.txt' ]
+
+
+const text = 'Welcome to freeCodeCamp';
+
+console.log(text.startsWith('W', 0)); // true
+console.log(text.startsWith('freeCodeCamp', 11)); // true
+console.log(text.endsWith('f', 11)); // false
 
