@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .hidden {
+          display: none;
+        }
+      </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Bookmark Keeper
+    </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+
+    <div class="maincontainer">
+        <button class="btn" id="myBtn">ADD BOOKMARK</button>
+
+
+        <div id="myModal" class="modal">
+
+             
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>Enter the Details</h2>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        Name: <input type="text" id="fname" name="fname" value=""><br><br>
+                        URL : <input type="text" id="URL" name="lname" value=""><br><br>
+                        <input type="button" id="closeButton" class="btn btn1" onclick="addLink()" value="Submit">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" id="container"></div>
+
+
+        <script src="script1.js"></script>
+
+    </div>
+
+
+</body>
+
+</html>
