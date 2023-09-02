@@ -70,15 +70,20 @@ function findBookByAuthor(authorName) {
 function listOverDueDate() {
     const overdueBooks = [];
     const now = new Date();
+
     library.forEach((book) => {
         if (book.dueDate && book.dueDate < now) {
             overdueBooks.push(book.Title);
-        } else {
-            console.warn("Everything is alright, no dueDated Books found");
         }
     });
+
+    if (overdueBooks.length === 0) {
+        console.warn("Everything is alright, no overdue books found.");
+    }
+
     return overdueBooks;
 }
+
 
 function rateBook(isbn, rating) {
 
@@ -111,6 +116,14 @@ function getAverageOfRating(isbn) {
     }
 }
 
+function sortBooks(criteria) {
+    library.sort((a, b) => {
+        const criteriaA = a[criteria];
+        const criteriaB = b[criteria];
+        criteriaA.localeCompare(criteriaB); // Change to criteriaB.localeCompare(criteriaA) for descending order
+    });
+}
+
 function getTheBook(isbn) {
     return library.find((book) => book.ISBN === isbn);
 }
@@ -123,11 +136,10 @@ const book3 = createBook("My name is Hero", "Ravisankar", 45646);
 const book4 = createBook("I started the War", "Ravi", 645646);
 
 
-console.group("Addition of Books:");
+
 addToLibrary(book1);
 addToLibrary(book2);
-console.groupEnd();
-
+addToLibrary(book4);
 
 
 checkedOutBook(23456, 1);
@@ -175,3 +187,5 @@ console.groupEnd();
 
 
 console.log("The average of the ratings is:", getAverageOfRating(23456));
+
+console.log(sortBooks(library.rating));
