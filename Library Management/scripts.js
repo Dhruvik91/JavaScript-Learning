@@ -9,6 +9,7 @@ function createBook(title, author, bookISBN) {
         checkedOut: false,
         checkedCount: 0,
         dueDate: null,
+        rating: null
     };
     return book;
 }
@@ -44,6 +45,8 @@ function returnBook(isbn) {
     }
 }
 
+
+
 function findBookByAuthor(authorName) {
     const booksByAuthor = [];
     library.forEach((book) => {
@@ -54,6 +57,8 @@ function findBookByAuthor(authorName) {
     return booksByAuthor;
 }
 
+
+
 function listOverDueDate() {
     const overdueBooks = [];
     const now = new Date();
@@ -63,6 +68,20 @@ function listOverDueDate() {
         }
     });
     return overdueBooks;
+}
+
+function rateBook(isbn, rating) {
+    const rate = [];
+    const book = library.find((book) => book.ISBN === isbn);
+
+    if (book) {
+
+        if (rating >= 1 || rating <= 5) {
+            book.rating = rate.push(rating);
+        }
+        else (alert("Add the current Rate"));
+    }
+    return library;
 }
 
 const book1 = createBook("The story", "Ravi", 12344);
@@ -79,8 +98,10 @@ checkedOutBook(23456, 1);
 console.log(library);
 
 returnBook(12344);
-console.log(library);
+console.log("List of all the books", library);
 
-console.log(findBookByAuthor("Ravi"));
+console.log("Rate Of the book", rateBook(23456, 6));
 
-console.log(listOverDueDate());
+console.log("List of books by same author", findBookByAuthor("Ravi"));
+
+console.log("List of overdue date books", listOverDueDate());
