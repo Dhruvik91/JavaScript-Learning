@@ -12,7 +12,7 @@ function createBook(title, author, bookISBN) {
         Author: author,
         ISBN: bookISBN,
         checkedOut: false,
-        checkedCount: count
+        checkedCount: count,
     }
     return book;
 }
@@ -26,11 +26,16 @@ function addToLibrary(book) {
 
 
 // this function is used to check out a book
-function checkedOutBook(isbn) {
+function checkedOutBook(isbn, noOfDays) {
+
+    const now = new Date();
+    const dueDate = new Date(now.getTime() + (noOfDays * 24 * 60 * 60 * 1000));
+
     library.forEach((book) => {
         if (book.ISBN === isbn) {
             book.checkedOut = true;      // Set the checkedOut key of the matched book to true
             book.checkedCount = ++count;
+            book.dueDate = dueDate;
 
             if (book.checkedCount > MAX_COUNT) {
                 book.checkedOut = false;       
@@ -39,8 +44,6 @@ function checkedOutBook(isbn) {
         }
     });
 }
-
-
 
 
 function returnBook(isbn) {
@@ -61,12 +64,12 @@ function findBookByAuthor(authorName) {
     library.forEach((book) => {
         if (book.Author === authorName) {
             bookWritten.push(book.Title);
-
         }
-
     });
     return bookWritten;
 }
+
+
 
 
 
@@ -80,7 +83,7 @@ addToLibrary(book2);
 addToLibrary(book3);
 addToLibrary(book4);
 
-checkedOutBook(23456);
+checkedOutBook(23456, 4);
 console.log(library);
 
 returnBook(12344);
