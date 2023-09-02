@@ -15,8 +15,15 @@ function createBook(title, author, bookISBN) {
     return book;
 }
 
-function addToLibrary(book) {
-    library.push(book);
+function addToLibrary(newBook) {
+    const duplicateBook = library.find((book) => book.ISBN === newBook.ISBN);
+
+    if (!duplicateBook) {
+        library.push(newBook);
+    } else {
+        console.warn("The ISBN already exists:", newBook.ISBN);
+    }
+
     return library;
 }
 
@@ -66,6 +73,8 @@ function listOverDueDate() {
     library.forEach((book) => {
         if (book.dueDate && book.dueDate < now) {
             overdueBooks.push(book.Title);
+        } else {
+            console.warn("Everything is alright, no dueDated Books found");
         }
     });
     return overdueBooks;
@@ -79,7 +88,7 @@ function rateBook(isbn, rating) {
         if (rating >= 1 && rating <= 5) {
             book.rating.push(rating);
         }
-        else (console.warn("Add the correct Rate"));
+        else (console.warn("Enter the correct rating. It is not in the range of 1 to 5"));
     }
     return library;
 }
@@ -87,20 +96,19 @@ function rateBook(isbn, rating) {
 function getAverageOfRating(isbn) {
     const book = getTheBook(isbn);
 
-    if (book) { // Ensure there are ratings to calculate an average
+    if (book) {
         let arrayOfRating = book.rating;
 
         let sum = arrayOfRating.reduce((sum, current) => sum + current, 0);
 
-        let average = sum / arrayOfRating.length; // Calculate the average
+        let average = sum / arrayOfRating.length;
 
-        return average; // Return the calculated average
-    } 
-    else {
-              console.warn("Enter the correct ISBN");
+        return average;
     }
 
-    return 0; // Return 0 if there are no ratings or the book is not found
+    else {
+        console.warn("Enter the correct ISBN");
+    }
 }
 
 function getTheBook(isbn) {
@@ -114,10 +122,13 @@ const book2 = createBook("Will it be two sided", "Ravinath", 23456);
 const book3 = createBook("My name is Hero", "Ravisankar", 45646);
 const book4 = createBook("I started the War", "Ravi", 645646);
 
+
+console.group("Addition of Books:");
 addToLibrary(book1);
 addToLibrary(book2);
-addToLibrary(book3);
-addToLibrary(book4);
+console.groupEnd();
+
+
 
 checkedOutBook(23456, 1);
 
