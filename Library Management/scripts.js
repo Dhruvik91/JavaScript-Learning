@@ -1,13 +1,18 @@
 // this is the array of objects, which stores the books' data
 let library = [];
 
+let count = 0;
+
+const MAX_COUNT = 3;
+
 // this function creates an object for book data
-function createBook(title, author, bookISBN) {  
+function createBook(title, author, bookISBN) {
     const book = {
         Title: title,
         Author: author,
         ISBN: bookISBN,
-        checkedOut: false
+        checkedOut: false,
+        checkedCount: count
     }
     return book;
 }
@@ -18,25 +23,25 @@ function addToLibrary(book) {
     return library;
 }
 
-const book1 = createBook("The story", "Ravi", 12344);
-const book2 = createBook("The story of him", "Ravinath", 23456);
-const book3 = createBook("The story of her", "Ravisankar", 45646);
 
-addToLibrary(book1);
-addToLibrary(book2);
-addToLibrary(book3);
 
 // this function is used to check out a book
 function checkedOutBook(isbn) {
     library.forEach((book) => {
         if (book.ISBN === isbn) {
-            book.checkedOut = true; // Set the checkedOut key of the matched book to true
+            book.checkedOut = true;      // Set the checkedOut key of the matched book to true
+            book.checkedCount = ++count;
+
+            if (book.checkedCount > MAX_COUNT) {
+                book.checkedOut = false;       
+                alert("This book is unavaiable");
+            }
         }
     });
 }
 
-checkedOutBook(23456);
-console.log(library);
+
+
 
 function returnBook(isbn) {
     library.forEach((book) => {
@@ -46,17 +51,40 @@ function returnBook(isbn) {
     });
 }
 
-returnBook(12344);
 
-console.log(library);
+let bookWritten = []; // this is the array that will add the books by the author namw
 
+
+// this function find the book wirtten by the author
 function findBookByAuthor(authorName) {
 
     library.forEach((book) => {
-        if (book.author === authorName) {
-           return book.Title; 
+        if (book.Author === authorName) {
+            bookWritten.push(book.Title);
+
         }
+
     });
-} 
+    return bookWritten;
+}
+
+
+
+const book1 = createBook("The story", "Ravi", 12344);
+const book2 = createBook("The story of him", "Ravinath", 23456);
+const book3 = createBook("The story of her", "Ravisankar", 45646);
+const book4 = createBook("The story of Ravi", "Ravi", 645646);
+
+addToLibrary(book1);
+addToLibrary(book2);
+addToLibrary(book3);
+addToLibrary(book4);
+
+checkedOutBook(23456);
+console.log(library);
+
+returnBook(12344);
+console.log(library);
+
 
 console.log(findBookByAuthor("Ravi"));
