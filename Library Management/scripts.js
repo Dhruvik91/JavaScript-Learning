@@ -9,7 +9,7 @@ function createBook(title, author, bookISBN) {
         checkedOut: false,
         checkedCount: 0,
         dueDate: null,
-        rating: null
+        rating: []
     };
     return book;
 }
@@ -23,11 +23,11 @@ function checkedOutBook(isbn, noOfDays) {
     const book = library.find((book) => book.ISBN === isbn);
 
     if (!book) {
-        alert("Book not found in the library.");
+        console.warn("Book not found in the library.");
     } else if (book.checkedCount > MAX_COUNT) {
-        alert("This book is unavailable for checkout.");
+        console.warn("This book is unavailable for checkout.");
     } else if (book.checkedOut) {
-        alert("This book is already checked out.");
+        console.warn("This book is already checked out.");
     } else {
         book.checkedOut = true;
         book.checkedCount++;
@@ -71,15 +71,14 @@ function listOverDueDate() {
 }
 
 function rateBook(isbn, rating) {
-    const rate = [];
+
     const book = library.find((book) => book.ISBN === isbn);
 
     if (book) {
-
-        if (rating >= 1 || rating <= 5) {
-            book.rating = rate.push(rating);
+        if (rating >= 1 && rating <= 5) {
+            book.rating.push(rating);
         }
-        else (alert("Add the current Rate"));
+        else (console.warn("Add the correct Rate"));
     }
     return library;
 }
@@ -95,13 +94,40 @@ addToLibrary(book3);
 addToLibrary(book4);
 
 checkedOutBook(23456, 1);
-console.log(library);
 
 returnBook(12344);
-console.log("List of all the books", library);
 
-console.log("Rate Of the book", rateBook(23456, 6));
+console.group("Library:");
+console.log("List of all the books:");
+console.table(library);
+console.groupEnd();
 
-console.log("List of books by same author", findBookByAuthor("Ravi"));
 
-console.log("List of overdue date books", listOverDueDate());
+console.group("Ratings:");
+console.log("Ratings Of the book:");
+console.table(rateBook(23456, 4));
+rateBook(23456, 3);
+rateBook(23456, 5);
+console.groupEnd();
+
+
+
+console.group("Library after rating:");
+console.log("List of all the books:");
+console.table(library);
+console.groupEnd();
+
+
+
+console.group("Books")
+console.log("List of the book written by the same author:");
+console.table(findBookByAuthor("Ravi"));
+console.groupEnd();
+
+
+console.group("OverDueDate Books:-");
+console.log("List of overdue date books", );
+console.table(listOverDueDate());
+console.groupEnd();
+
+
