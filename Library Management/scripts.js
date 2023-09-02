@@ -49,3 +49,14 @@ function returnBook(isbn) {
 returnBook(12344);
 
 console.log(library);
+
+function findBookByAuthor(authorName) {
+
+    library.forEach((book) => {
+        if (book.author === authorName) {
+           return book.Title; 
+        }
+    });
+} 
+
+console.log(findBookByAuthor("Ravi"));
