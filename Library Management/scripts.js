@@ -1,3 +1,4 @@
+
 let library = [];
 const MAX_COUNT = 3;
 
@@ -86,12 +87,17 @@ function rateBook(isbn, rating) {
 function getAverageOfRating(isbn) {
     const book = getTheBook(isbn);
 
-    if (book && book.ratings && book.ratings.length > 0) { // Ensure there are ratings to calculate an average
-        let sum = book.ratings.reduce((sum, current) => sum + current, 0);
+    if (book) { // Ensure there are ratings to calculate an average
+        let arrayOfRating = book.rating;
 
-        let average = sum / book.ratings.length; // Calculate the average
+        let sum = arrayOfRating.reduce((sum, current) => sum + current, 0);
+
+        let average = sum / arrayOfRating.length; // Calculate the average
 
         return average; // Return the calculated average
+    } 
+    else {
+              console.warn("Enter the correct ISBN");
     }
 
     return 0; // Return 0 if there are no ratings or the book is not found
@@ -157,4 +163,4 @@ console.table(library);
 console.groupEnd();
 
 
-console.log("The average of the ratings is:",getAverageOfRating(23456));
+console.log("The average of the ratings is:", getAverageOfRating(23456));
