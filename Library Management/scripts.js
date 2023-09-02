@@ -20,7 +20,7 @@ function addToLibrary(book) {
 }
 
 function checkedOutBook(isbn, noOfDays) {
-    const book = library.find((book) => book.ISBN === isbn);
+    const book = getTheBook(isbn);
 
     if (!book) {
         console.warn("Book not found in the library.");
@@ -39,7 +39,7 @@ function checkedOutBook(isbn, noOfDays) {
 }
 
 function returnBook(isbn) {
-    const book = library.find((book) => book.ISBN === isbn);
+    const book = getTheBook(isbn);
     if (book) {
         book.checkedOut = false;
     }
@@ -72,7 +72,7 @@ function listOverDueDate() {
 
 function rateBook(isbn, rating) {
 
-    const book = library.find((book) => book.ISBN === isbn);
+    const book = getTheBook(isbn);
 
     if (book) {
         if (rating >= 1 && rating <= 5) {
@@ -83,10 +83,30 @@ function rateBook(isbn, rating) {
     return library;
 }
 
-const book1 = createBook("The story", "Ravi", 12344);
-const book2 = createBook("The story of him", "Ravinath", 23456);
-const book3 = createBook("The story of her", "Ravisankar", 45646);
-const book4 = createBook("The story of Ravi", "Ravi", 645646);
+function getAverageOfRating(isbn) {
+    const book = getTheBook(isbn);
+
+    if (book && book.ratings && book.ratings.length > 0) { // Ensure there are ratings to calculate an average
+        let sum = book.ratings.reduce((sum, current) => sum + current, 0);
+
+        let average = sum / book.ratings.length; // Calculate the average
+
+        return average; // Return the calculated average
+    }
+
+    return 0; // Return 0 if there are no ratings or the book is not found
+}
+
+function getTheBook(isbn) {
+    return library.find((book) => book.ISBN === isbn);
+}
+
+
+// test cases 
+const book1 = createBook("The story of my life", "Ravi", 12344);
+const book2 = createBook("Will it be two sided", "Ravinath", 23456);
+const book3 = createBook("My name is Hero", "Ravisankar", 45646);
+const book4 = createBook("I started the War", "Ravi", 645646);
 
 addToLibrary(book1);
 addToLibrary(book2);
@@ -96,6 +116,7 @@ addToLibrary(book4);
 checkedOutBook(23456, 1);
 
 returnBook(12344);
+
 
 console.group("Library:");
 console.log("List of all the books:");
@@ -109,7 +130,6 @@ console.table(rateBook(23456, 4));
 rateBook(23456, 3);
 rateBook(23456, 5);
 console.groupEnd();
-
 
 
 console.group("Library after rating:");
@@ -126,8 +146,15 @@ console.groupEnd();
 
 
 console.group("OverDueDate Books:-");
-console.log("List of overdue date books", );
+console.log("List of overdue date books",);
 console.table(listOverDueDate());
 console.groupEnd();
 
 
+console.group("Library after all the operations:");
+console.log("List of all the books:");
+console.table(library);
+console.groupEnd();
+
+
+console.log("The average of the ratings is:",getAverageOfRating(23456));
