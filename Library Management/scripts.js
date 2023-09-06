@@ -20,6 +20,7 @@ function addToLibrary(newBook) {
 
     if (!duplicateBook) {
         library.push(newBook);
+        saveLibraryToLocalStorage();
     } else {
         console.warn("The ISBN already exists:", newBook.ISBN);
     }
@@ -50,6 +51,7 @@ function checkedOutBook(isbn, noOfDays = 7) {
         dueDate.setDate(dueDate.getDate() + noOfDays);
         book.dueDate = dueDate;
         console.log(`Checked out: ${book.Title}, Due Date: ${dueDate}`);
+        saveLibraryToLocalStorage();
     }
 }
 
@@ -57,6 +59,7 @@ function returnBook(isbn) {
     const book = getTheBook(isbn);
     if (book) {
         book.checkedOut = false;
+        saveLibraryToLocalStorage();
     } else {
         console.warn("Please enter the right ISBN number");
     }
@@ -101,6 +104,7 @@ function rateBook(isbn, rating) {
     if (book) {
         if (rating >= 1 && rating <= 5) {
             book.rating.push(rating);
+            saveLibraryToLocalStorage();
         }
         else (console.warn("Enter the correct rating. It is not in the range of 1 to 5"));
     }
@@ -136,6 +140,27 @@ function sortBooks(criteria) {
 function getTheBook(isbn) {
     return library.find((book) => book.ISBN === isbn);
 }
+
+function saveLibraryToLocalStorage() {
+    localStorage.setItem('library', JSON.stringify(library));
+}
+
+// Function to load the library data from local storage
+function loadLibraryFromLocalStorage() {
+    const libraryData = localStorage.getItem('library');
+    if (libraryData) {
+        return JSON.parse(libraryData);
+    } else {
+        return [];
+    }
+}
+
+// Function to initialize the library from local storage or create an empty one
+function initializeLibrary() {
+    library = loadLibraryFromLocalStorage();
+}
+
+
 
 
 // test cases 
