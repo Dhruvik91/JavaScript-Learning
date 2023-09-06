@@ -66,7 +66,6 @@ function returnBook(isbn) {
 }
 
 
-
 function findBookByAuthor(authorName) {
     const booksByAuthor = [];
     library.forEach((book) => {
@@ -76,7 +75,6 @@ function findBookByAuthor(authorName) {
     });
     return booksByAuthor;
 }
-
 
 
 function listOverDueDate() {
@@ -133,7 +131,7 @@ function sortBooks(criteria) {
     library.sort((a, b) => {
         const criteriaA = a[criteria];
         const criteriaB = b[criteria];
-        criteriaA.localeCompare(criteriaB); // Change to criteriaB.localeCompare(criteriaA) for descending order
+        return criteriaA.localeCompare(criteriaB); // Change to criteriaB.localeCompare(criteriaA) for descending order
     });
 }
 
@@ -145,7 +143,7 @@ function saveLibraryToLocalStorage() {
     localStorage.setItem('library', JSON.stringify(library));
 }
 
-// Function to load the library data from local storage
+
 function loadLibraryFromLocalStorage() {
     const libraryData = localStorage.getItem('library');
     if (libraryData) {
@@ -155,7 +153,6 @@ function loadLibraryFromLocalStorage() {
     }
 }
 
-// Function to initialize the library from local storage or create an empty one
 function initializeLibrary() {
     library = loadLibraryFromLocalStorage();
 }
@@ -178,7 +175,7 @@ addToLibrary(book4);
 
 checkedOutBook(23456, 1);
 
-returnBook(12344);
+returnBook(23456);
 
 
 console.group("Library:");
@@ -223,3 +220,8 @@ console.groupEnd();
 console.log("The average of the ratings is:", getAverageOfRating(23456));
 
 console.log(sortBooks(library.rating));
+
+console.group("Data stored in localStorage");
+console.log("List of all the books:");
+console.table(loadLibraryFromLocalStorage());
+console.groupEnd();
