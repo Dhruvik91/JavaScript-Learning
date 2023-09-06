@@ -27,7 +27,14 @@ function addToLibrary(newBook) {
     return library;
 }
 
-function checkedOutBook(isbn, noOfDays) {
+function checkedOutBook(isbn, noOfDays = 7) {
+   
+    if ( noOfDays <= 0) {
+        console.warn("You entered the invalid number of days.");
+        return;
+    }
+
+
     const book = getTheBook(isbn);
 
     if (!book) {
