@@ -6,26 +6,54 @@ Requirements to be satisfied
 - Winning Condition: Declare the first player reaching the last square as the winner. */
 
 
-/* this is the dics */
+/* this is the dice */
 function Dics() {
     return Math.floor(Math.random() * 6 + 1);
 
 
 }
 
+// function for the snakes
 function snake(cp) {
     switch (cp) {
-        case 35:
-            return currentPosition = 17;
+        case 39:
+            return currentPosition = 3;
+        case 47:
+            return currentPosition = 32;
+        case 59:
+            return currentPosition = 37;
+        case 95:
+            return currentPosition = 55;
+        case 89:
+            return currentPosition = 51;
+        case 99:
+            return currentPosition = 4;
+
+    }
+}
+
+// function for the ladders
+function ladder(cp) {
+    switch (cp) {
+        case 8:
+            return currentPosition = 30;
+        case 17:
+            return currentPosition = 46;
+        case 31:
+            return currentPosition = 67;
+        case 42:
+            return currentPosition = 80;
         case 57:
-            return currentPosition = 22;
+            return currentPosition = 85;
+        case 68:
+            return currentPosition = 93;
     }
 }
 
 let currentPosition = 0;
 
 function game(board) {
-    let player = [];
+
     let dice = 0;
 
 
@@ -37,36 +65,44 @@ function game(board) {
 
 
         console.log("value of the board", currentPosition);
+        
 
-        // player.push(currentPosition);
+        const ladderPosition = [8, 17, 31, 42, 57, 68]; // array for the position of the ladders
 
-        const skP = [1,2,3,4,5];
+        ladderPosition.find((value) => {
 
-        currentPosition = skP.find((value) => {
+            if (currentPosition === value) {
+                console.log("The ladder position")
+                ladder(value);
+            }
+        });
+
+
+        const snakePosition = [39, 47, 59, 89, 95, 99];  // array for the position of the snakes
+
+        snakePosition.find((value) => {
+
+            if (currentPosition === value) {
+                console.log("The snake position")
                 snake(value);
-        })
-
-    /* 
-            if (currentPosition == skP[i]) {
-                console.log("Position of the Snake");
-                snake(currentPosition);
             }
-            else if (currentPosition > 100) {
+        });
 
-                currentPosition = currentPosition - dice;
-                console.log("value of the board 2", currentPosition);
+        if (currentPosition > 100) {
 
-            } else if (currentPosition === 100) {
-                console.log("The player is winner");
-                return currentPosition;
-            }
+            currentPosition = currentPosition - dice;
 
+            console.log("value of the board 2", currentPosition);
 
-        } */
+        } 
+        else if (currentPosition === 100) {
+
+            console.log("The player is winner");
+
+            return currentPosition;
+        }
     }
 }
-
-
 
 
 /* this is the board  */
