@@ -50,7 +50,7 @@ function checkedOutBook(isbn, noOfDays = 7) {
         const dueDate = new Date();
         dueDate.setDate(dueDate.getDate() + noOfDays);
         book.dueDate = dueDate;
-        console.log(`Checked out: ${book.Title}, Due Date: ${dueDate}`);
+        console.log(`Checked out: "${book.Title}", Due Date: ${dueDate}`);
         saveLibraryToLocalStorage();
     }
 }
@@ -60,6 +60,7 @@ function returnBook(isbn) {
     if (book) {
         book.checkedOut = false;
         saveLibraryToLocalStorage();
+        console.log(`The book "${book.Title}" has been returned`);
     } else {
         console.warn("Please enter the right ISBN number");
     }
@@ -181,7 +182,11 @@ checkedOutBook(23456, 1);
 console.groupEnd();
 
 
+console.group("Returned Books");
+console.log("List of all the books:");
 returnBook(23456);
+console.groupEnd();
+
 
 
 console.group("Library:");
@@ -228,7 +233,3 @@ console.groupEnd();
 
 console.log(sortBooks('rating'));
 
-console.group("Data stored in localStorage");
-console.log("List of all the books:");
-console.table(localStorage.getItem("library"));
-console.groupEnd();
