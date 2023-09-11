@@ -119,7 +119,9 @@ function getAverageOfRating(isbn) {
 
         let average = sum / arrayOfRating.length;
 
-        return average;
+         const result = Math.round(average * 100) / 100;
+
+        return (`The ${book.Title} has the average rating of ${result}`);
     }
 
     else {
@@ -131,7 +133,7 @@ function sortBooks(criteria) {
     library.sort((a, b) => {
         const criteriaA = a[criteria];
         const criteriaB = b[criteria];
-        return criteriaA.localeCompare(criteriaB); // Change to criteriaB.localeCompare(criteriaA) for descending order
+        return criteriaA.localeCompare(criteriaB); 
     });
 }
 
@@ -173,7 +175,11 @@ addToLibrary(book2);
 addToLibrary(book4);
 
 
+console.group("Checked Out Books");
+console.log("List of all the books:");
 checkedOutBook(23456, 1);
+console.groupEnd();
+
 
 returnBook(23456);
 
@@ -186,9 +192,9 @@ console.groupEnd();
 
 console.group("Ratings:");
 console.log("Ratings Of the book:");
-console.table(rateBook(23456, 4));
-rateBook(23456, 3);
-rateBook(23456, 5);
+console.table(rateBook(23456, 4.345));
+rateBook(23456, 3.567);
+rateBook(23456, 4.344);
 console.groupEnd();
 
 
@@ -216,12 +222,13 @@ console.log("List of all the books:");
 console.table(library);
 console.groupEnd();
 
+console.group("Average Ratings:")
+console.log(getAverageOfRating(23456));
+console.groupEnd();
 
-console.log("The average of the ratings is:", getAverageOfRating(23456));
-
-console.log(sortBooks(library.rating));
+console.log(sortBooks('rating'));
 
 console.group("Data stored in localStorage");
 console.log("List of all the books:");
-console.table(loadLibraryFromLocalStorage());
+console.table(localStorage.getItem("library"));
 console.groupEnd();
