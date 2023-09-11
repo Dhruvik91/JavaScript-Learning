@@ -10,34 +10,63 @@ Requirements to be satisfied
 function Dics() {
     return Math.floor(Math.random() * 6 + 1);
 
+
 }
 
+function snake(cp) {
+    switch (cp) {
+        case 35:
+            return currentPosition = 17;
+        case 57:
+            return currentPosition = 22;
+    }
+}
 
+let currentPosition = 0;
 
 function game(board) {
     let player = [];
     let dice = 0;
-    let currentPosition = 0;
 
-    for (let i = 0; i < board.length; i++) {
+
+    for (let i = -1; i < board.length; i++) {
 
         dice = Dics();
 
-        currentPosition = currentPosition + board + dice;
+        currentPosition = currentPosition + dice;
 
-        board[i] = currentPosition;
-        console.log("value of the board", board[i]);
 
-        player.push(board[i]);
+        console.log("value of the board", currentPosition);
 
-        if (player.includes(99) && board[i] > 100)  {
+        // player.push(currentPosition);
 
-            console.log("The player", player);
+        const skP = [1,2,3,4,5];
 
-        }
+        currentPosition = skP.find((value) => {
+                snake(value);
+        })
+
+    /* 
+            if (currentPosition == skP[i]) {
+                console.log("Position of the Snake");
+                snake(currentPosition);
+            }
+            else if (currentPosition > 100) {
+
+                currentPosition = currentPosition - dice;
+                console.log("value of the board 2", currentPosition);
+
+            } else if (currentPosition === 100) {
+                console.log("The player is winner");
+                return currentPosition;
+            }
+
+
+        } */
     }
-
 }
+
+
 
 
 /* this is the board  */
