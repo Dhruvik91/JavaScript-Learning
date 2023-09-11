@@ -1,4 +1,4 @@
-/* The map() method is a higher-order array method. It allows you to transform elements of an array into new values, 
+/* Tip :- 8 The map() method is a higher-order array method. It allows you to transform elements of an array into new values, 
 creating a new array with the same length as the original but with modified elements.
 It is very common to use map() for showing items coming from an API or the ones you created yourself */
 
