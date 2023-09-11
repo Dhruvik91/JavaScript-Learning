@@ -1,5 +1,5 @@
 let game = {
-  
+
 
   read() {
 
@@ -41,7 +41,7 @@ let game = {
 
 function Check() {
 
-  
+
   return `The input is ${game.read()} and the computer choose ${game.number()} and ${game.result()}`;
 }
 

@@ -16,4 +16,4 @@ setTimeout(user.say, 1000); // This will give me the undefined because the "this
 
 
 setTimeout(user.say.bind(user), 1000); /* here it will give the perfect result i want. "bind" will use to fix the value of "this".
-                                            Here it will it (this = user) */
+                                            Here it will it (this = user) */ 

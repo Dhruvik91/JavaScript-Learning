@@ -188,7 +188,6 @@ returnBook(23456);
 console.groupEnd();
 
 
-
 console.group("Library:");
 console.log("List of all the books:");
 console.table(library);
@@ -207,7 +206,6 @@ console.group("Library after rating:");
 console.log("List of all the books:");
 console.table(library);
 console.groupEnd();
-
 
 
 console.group("Books")

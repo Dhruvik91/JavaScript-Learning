@@ -5,12 +5,12 @@
 
 With template interpolation, you can conveniently embed variables in strings. */
 
-const name = 'John Doe';
+const names = 'John Doe';
 const age = 20;
 
 const plusConcat =
-  'Hi there 👋🏽 \nMy name is ' + name + ' and I am ' + age + ' years old.';
+  'Hi there 👋🏽 \nMy name is ' + names + ' and I am ' + age + ' years old.';
 
-const templateLiteralConcat = `Hi there 👋🏽 \nMy name is, ${name} and I am ${age} years old.`;
+const templateLiteralConcat = `Hi there 👋🏽 \nMy name is, ${names} and I am ${age} years old.`;
 
 console.log(templateLiteralConcat);

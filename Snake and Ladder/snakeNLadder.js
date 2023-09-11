@@ -8,7 +8,7 @@ Requirements to be satisfied
 
 /* this is the dics */
 function Dics() {
-    return Math.ceil(Math.random() * 6);
+    return Math.floor(Math.random() * 6 + 1);
 
 }
 
@@ -16,25 +16,27 @@ function Dics() {
 
 function game(board) {
     let player = [];
-    let dics = 0;
+    let dice = 0;
     let currentPosition = 0;
 
     for (let i = 0; i < board.length; i++) {
 
-        dics = Dics();
-        
-        currentPosition = currentPosition + board[i] + dics;
+        dice = Dics();
 
-        board[i] = board[currentPosition];
-        console.log("value of the board",board[i]);
+        currentPosition = currentPosition + board + dice;
 
+        board[i] = currentPosition;
+        console.log("value of the board", board[i]);
 
+        player.push(board[i]);
 
-        player.push([board[i]]);
-        if(player.includes(100) || player.includes())
-        console.log("The player",player);
+        if (player.includes(99) && board[i] > 100)  {
+
+            console.log("The player", player);
+
+        }
     }
-    
+
 }
 
 
