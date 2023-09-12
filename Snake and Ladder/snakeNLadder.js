@@ -50,6 +50,9 @@ function ladder(cp) {
 
 let currentPosition = 0;
 
+let player = [p1 = [], p2 = [], p3 = [], p4 = []];
+
+
 function game(board) {
 
     let dice = 0;
@@ -57,51 +60,68 @@ function game(board) {
 
     for (let i = -1; i < board.length; i++) {
 
-        dice = Dics();
+        for (let j = 0; j < player.length; j++) {
 
-        currentPosition = currentPosition + dice;
+            dice = Dics();
+
+            currentPosition = currentPosition + dice;
 
 
-        console.log("value of the board", currentPosition);
+            // console.log("value of the board", currentPosition);
 
 
-        const ladderPosition = [8, 17, 31, 42, 57, 68]; // array for the position of the ladders
+            const ladderPosition = [8, 17, 31, 42, 57, 68]; // array for the position of the ladders
 
-        ladderPosition.find((value) => {
+            ladderPosition.find((value) => {
 
-            if (currentPosition === value) {
-                console.log("The ladder position")
-                ladder(value);
+                if (currentPosition === value) {
+                    // console.log("The ladder position")
+                    ladder(value);
+                }
+            });
+
+
+            const snakePosition = [39, 47, 59, 89, 95, 99];  // array for the position of the snakes
+
+            snakePosition.find((value) => {
+
+                if (currentPosition === value) {
+                    // console.log("The snake position")
+                    snake(value);
+                }
+            });
+
+            
+            if (currentPosition < 106) {
+
+
+                player[j].push(currentPosition);
+                //console.log(`The position of player[${j}]:`, player[j]);
+
+
+                if (currentPosition > 100) {
+
+                    currentPosition = currentPosition - dice;
+
+                    console.log("value of the board 2", currentPosition);
+
+                }
+
+                else if (currentPosition === 100) {
+
+                    if (player[j].includes(100)) {
+
+                        console.table(`The player is winner ${j + 1}`, player[j]);
+
+                        return currentPosition;
+                    }
+                }
+
             }
-        });
-
-
-        const snakePosition = [39, 47, 59, 89, 95, 99];  // array for the position of the snakes
-
-        snakePosition.find((value) => {
-
-            if (currentPosition === value) {
-                console.log("The snake position")
-                snake(value);
-            }
-        });
-
-        if (currentPosition > 100) {
-
-            currentPosition = currentPosition - dice;
-
-             console.log("value of the board 2", currentPosition);
-
-        } 
-        
-        else if (currentPosition === 100) {
-
-            console.log("The player is winner");
-
-            return currentPosition;
         }
     }
 }
+
 
 
 /* this is the board  */
@@ -119,3 +139,5 @@ let board = [
 ];
 
 game(board);
+
+
