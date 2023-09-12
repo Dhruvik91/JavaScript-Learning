@@ -9,8 +9,6 @@ Requirements to be satisfied
 /* this is the dice */
 function Dics() {
     return Math.floor(Math.random() * 6 + 1);
-
-
 }
 
 // function for the snakes
@@ -65,7 +63,7 @@ function game(board) {
 
 
         console.log("value of the board", currentPosition);
-        
+
 
         const ladderPosition = [8, 17, 31, 42, 57, 68]; // array for the position of the ladders
 
@@ -92,9 +90,10 @@ function game(board) {
 
             currentPosition = currentPosition - dice;
 
-            console.log("value of the board 2", currentPosition);
+             console.log("value of the board 2", currentPosition);
 
         } 
+        
         else if (currentPosition === 100) {
 
             console.log("The player is winner");
