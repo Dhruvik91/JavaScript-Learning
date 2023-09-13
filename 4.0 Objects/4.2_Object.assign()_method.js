@@ -15,4 +15,16 @@ for (key in user) {
     clone[key] = user[key]; // this just creates the copy of the object. it doesnt create the refference
 }
 
-console.log(clone);
+
+console.table(clone);
+
+
+
+// ------------------------------------------------------------------------------------------------------------------
+
+/* Now the shortcut for it */
+/* Use Object.assign() method */
+
+let clone2 = Object.assign({}, user);
+
+console.table(clone2);
