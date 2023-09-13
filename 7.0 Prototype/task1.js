@@ -20,7 +20,6 @@ let fish = {
     swim() {
         console.log("Fish can swim");
     },
-    __proto__: 
 }
 
 console.log(birds.name);
