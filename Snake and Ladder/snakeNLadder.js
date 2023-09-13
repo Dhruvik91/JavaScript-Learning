@@ -9,7 +9,7 @@ Requirements to be satisfied
 /* this is the dice */
 function Dics() {
     return Math.floor(Math.random() * 6 + 1);
-}
+} // 4,6 // 5
 
 // function for the snakes
 function snake(cp) {
@@ -67,7 +67,7 @@ function game(board) {
             currentPosition = currentPosition + dice;
 
 
-            // console.log("value of the board", currentPosition);
+             console.log("value of the board", currentPosition);
 
 
             const ladderPosition = [8, 17, 31, 42, 57, 68]; // array for the position of the ladders
@@ -96,7 +96,7 @@ function game(board) {
 
 
                 player[j].push(currentPosition);
-                //console.log(`The position of player[${j}]:`, player[j]);
+                console.log(`The position of player[${j + 1}]:`, player[j]);
 
 
                 if (currentPosition > 100) {
