@@ -47,28 +47,22 @@ console.table(snakeNLadder);
 } */
 
 
-
-
-
 const player = [[], [], [], []];
 
 
-function game(board) {
-
+function game() {
     let dice = 0;
+    let winner = null;
 
-
-    for (let i = -1; i < board.length; i++) {
+    while (!winner) {
 
         for (let j = 0; j < player.length; j++) {
 
+            if (winner !== null) break; // If a winner is found, exit the loop.
+
             let currentPosition = player[j].length ? player[j][player[j].length - 1] : 0;
-
             dice = Dics();
-
             currentPosition = currentPosition + dice;
-
-            // console.log(currentPosition);
 
             if (snakeNLadder[currentPosition]) {
                 console.log("The players ladder position", currentPosition);
@@ -76,37 +70,22 @@ function game(board) {
                 console.log("The ladder of grace", currentPosition);
             }
 
-
-            if (currentPosition < 106) {
-
-
+            if (currentPosition <= 100) {
                 player[j].push(currentPosition);
-                //console.log(`The position of player[${j + 1}]:`, player[j]);
+                
 
-
-                if (currentPosition > 100) {
-
-                    currentPosition = currentPosition - dice;
-
-                    console.log("value of the board 2", currentPosition);
-
-                }
-
-                 if (currentPosition === 100) {
-
-                    if (player[j].includes(100)) {
-
-                        console.table(`The player is winner ${j + 1}`, player[j]);
-
-                        return;
+                if (currentPosition === 100) {
+                    if (player[j].lastIndexOf(100)) {
+                        winner = j + 1;
                     }
                 }
-
             }
         }
-
     }
+
+    console.table(`The player ${winner} is the winner.`, player[winner - 1]);
 }
+
 
 
 
@@ -125,6 +104,6 @@ const board = [
     91, 92, 93, 94, 95, 96, 97, 98, 99, 100
 ];
 
-game(board);
+game();
 
 
