@@ -35,18 +35,6 @@ function snakeLadder() {
     return snakeAndLadder;
 }
 
-
-
-// -------------------------------------------------------------------------------------------------------------------
-
-
-// Here the players get selected 
-
-function getPlayer() {
-    return [[], [], [], []];
-}
-
-
 // -------------------------------------------------------------------------------------------------------------------
 
 
@@ -67,7 +55,7 @@ function checkForWinner(player) {
 function playGame() {
 
     let dice = 0;
-    let player = getPlayer();
+    let player = [[], [], [], []];
     const snakeAndLadder = snakeLadder();
 
     console.group("The snake and ladder:");
