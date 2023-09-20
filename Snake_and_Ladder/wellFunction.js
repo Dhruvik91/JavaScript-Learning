@@ -52,8 +52,8 @@ function getPlayer() {
 
 // This gives the winner of the game
 
-function checkForWinner(player, i) {
-    if (player[i][player[i].length - 1] === 100) {
+function checkForWinner(player) {
+    if (player[player[i].length - 1] === 100) {
 
         return true;
     }
@@ -100,7 +100,7 @@ function playGame() {
                 player[j].push(currentPosition);
 
 
-                if (checkForWinner(player, j)) {
+                if (checkForWinner(player[j])) {
 
                     console.group(`The winner is player ${j + 1}`);
                     console.log(player[j]);
