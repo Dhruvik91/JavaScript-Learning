@@ -23,7 +23,7 @@ function snakeLadder() {
 }
 
 function checkForWinner(player, i) {
-    if (player[i][player[i].length - 1] >= 100) { 
+    if (player[i][player[i].length - 1] >= 100) {
         return true;
     }
     return false;
@@ -32,6 +32,9 @@ function checkForWinner(player, i) {
 function playGame() {
     let dice = 0;
     let player = [[], [], [], []];
+
+    let getPlayerData = {};
+    let showPlayerData = [];
     const snakeAndLadder = snakeLadder();
 
     console.group("The snake and ladder:");
@@ -41,7 +44,9 @@ function playGame() {
     let winner = null;
 
     while (!winner) {
+
         for (let j = 0; j < player.length; j++) {
+            
             if (winner !== null) break;
 
             let currentPosition = player[j].length ? player[j][player[j].length - 1] : 0;
@@ -55,7 +60,19 @@ function playGame() {
             }
 
             if (currentPosition <= 100) {
+
                 player[j].push(currentPosition);
+
+                getPlayerData = {
+                    playerId: j,
+                    previousPosition: currentPosition - dice,
+                    currentPosition: currentPosition,
+                    dice: dice,
+                    winner: checkForWinner(player, j) ? "Yes" : "False",
+                } 
+
+                showPlayerData.push(getPlayerData);
+
 
                 if (checkForWinner(player, j)) {
 
@@ -66,8 +83,10 @@ function playGame() {
                     break;
                 }
             }
+
         }
     }
+    console.table(showPlayerData);
 }
 
 playGame();
