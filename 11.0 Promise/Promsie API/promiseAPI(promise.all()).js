@@ -18,3 +18,6 @@ Promise.all(requests)
     .then(responses => responses.forEach(
         response => alert(`${response.url}: ${response.status}`)
     ));
+
+
+    /* Please note that, if any promsie is get rejected then, all the promoise will not exectued.  */
