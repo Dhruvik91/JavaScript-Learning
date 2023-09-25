@@ -35,7 +35,6 @@ class Address {
         this.street = street,
             this.city = city,
             this.state = state
-
     }
 }
 
@@ -43,17 +42,27 @@ class Performance {
 
     constructor(quarterlyReview, annualReview) {
         this.quarterlyReview = quarterlyReview;
-        this.annualReview - annualReview
-    
+        this.annualReview = annualReview
     }
 }
 
 
-var address = new Address("123", "Gondal", "Gujarat");
+class AnnualReview {
 
-var personalInfo = new PersonaInfo("Dhruvik", "22", address);
+    constructor(rating, feedback) {
+        this.rating = rating;
+        this.feedback = feedback;
+    }
+}
 
-const performance = new Performance("Good", "Amzing");
+
+const address = new Address("123", "Gondal", "Gujarat");
+
+const personalInfo = new PersonaInfo("Dhruvik", "22", address);
+
+const annualReview = new AnnualReview("4", "Works Good");
+
+const performance = new Performance("Good", annualReview);
 
 
 const employeeOne = new Employees("dhruvikgondaliya@gmail.com", personalInfo, performance);
