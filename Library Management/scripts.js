@@ -120,7 +120,7 @@ function getAverageOfRating(isbn) {
 
         let average = sum / arrayOfRating.length;
 
-         const result = Math.round(average * 100) / 100;
+        const result = Math.round(average * 100) / 100;
 
         return (`The ${book.Title} has the average rating of ${result}`);
     }
@@ -134,7 +134,7 @@ function sortBooks(criteria) {
     library.sort((a, b) => {
         const criteriaA = a[criteria];
         const criteriaB = b[criteria];
-        return criteriaA.localeCompare(criteriaB); 
+        return criteriaA.localeCompare(criteriaB);
     });
 }
 
