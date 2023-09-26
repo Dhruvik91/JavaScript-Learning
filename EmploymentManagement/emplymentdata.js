@@ -64,7 +64,6 @@ const annualReview = new AnnualReview("4", "Works Good");
 
 const performance = new Performance("Good", annualReview);
 
-
 const employeeOne = new Employees("dhruvikgondaliya@gmail.com", personalInfo, performance);
 
 console.log(employeeOne);
