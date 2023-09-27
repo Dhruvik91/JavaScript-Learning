@@ -1,3 +1,13 @@
+
+class EmployeesData {
+
+    constructor(data) {
+        this.EmployeesData = data;
+    }
+}
+
+
+
 class Employees {
 
     constructor(email, personaInfo, performance) {
@@ -43,8 +53,29 @@ class Performance {
     constructor(quarterlyReview, annualReview) {
         this.quarterlyReview = quarterlyReview;
         this.annualReview = annualReview
+
     }
 }
+
+
+class QuarterlyReview {
+
+    constructor(...q) {
+        this.q = q;
+
+    }
+
+}
+
+class Reviews {
+
+    constructor(rating, feedback) {
+        this.rating = rating;
+        this.feedback = feedback;
+        console.log(Object.freeze(this));
+    }
+}
+
 
 
 class AnnualReview {
@@ -62,9 +93,22 @@ const personalInfo = new PersonaInfo("Dhruvik", "22", address);
 
 const annualReview = new AnnualReview("4", "Works Good");
 
-const performance = new Performance("Good", annualReview);
+const Q1 = new Reviews("5", "Good work");
+
+const Q2 = new Reviews("4", "Good by the time");
+
+const Q3 = new Reviews("4", "Cool");
+
+const Q4 = new Reviews("2", "Vice");
+
+const q3 = new QuarterlyReview(Q1, Q2, Q3, Q4);
+
+const performance = new Performance(q3, annualReview);
 
 const employeeOne = new Employees("dhruvikgondaliya@gmail.com", personalInfo, performance);
 
-console.log(employeeOne);
+let employeeData = new EmployeesData(employeeOne);
+
+
+console.log(employeeData);
 
