@@ -70,8 +70,8 @@ function playGame() {
                 getPlayerData = {
                     playerId: j + 1,
                     previousPosition: perv,
-                    currentPosition: currentPosition,
                     dice: dice,
+                    currentPosition: currentPosition,
                     winner: checkForWinner(player, j) ? "Yes" : "False",
                 }
 
