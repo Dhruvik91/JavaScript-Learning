@@ -46,10 +46,14 @@ function playGame() {
     while (!winner) {
 
         for (let j = 0; j < player.length; j++) {
-            
+
             if (winner !== null) break;
 
             let currentPosition = player[j].length ? player[j][player[j].length - 1] : 0;
+
+            let perv = player[j].length ? player[j][player[j].length - 1] : 0;
+
+            console.log(`The current position is: ${j + 1}`, currentPosition);
 
             dice = Dice();
 
@@ -64,12 +68,12 @@ function playGame() {
                 player[j].push(currentPosition);
 
                 getPlayerData = {
-                    playerId: j,
-                    previousPosition: currentPosition - dice,
+                    playerId: j + 1,
+                    previousPosition: perv,
                     currentPosition: currentPosition,
                     dice: dice,
                     winner: checkForWinner(player, j) ? "Yes" : "False",
-                } 
+                }
 
                 showPlayerData.push(getPlayerData);
 
