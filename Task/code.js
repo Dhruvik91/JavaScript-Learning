@@ -12,21 +12,22 @@ function countNumber(s) {
 
     let arr = [...newString];
 
-    let newObj = {};
-    
-    let newArrOfObj = [];
+    let map = new Map();
 
-    for (let values of arr) {
-        
-        if (values !== ' ') {
+    for ( let value of arr ) {
 
-            !newObj[values] ? newObj[values] = 1 : newObj[values]++;
+        if (value !== ' ') {
 
+            if(!map.has(value)) {
+
+                map.set(value, {[value] : 0});
+            }
+            map.get(value)[value]++;
         }
     }
-    newArrOfObj.push(newObj);
 
-    return newArrOfObj.sort((a, b) => b - a);
+    console.log(Array.from(map.values()));
+    
 
 }
 
