@@ -3,27 +3,29 @@
 
 function getReels(n) {
 
-    const reelsOfElements = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 0, 1, 2, 2, 3, 4, 5, 5, 6, 6, 7];
+    const reelsOfElements = [0, 3, 1, 0, , 0, 3, 4, 2, 1, 0, 2, 1, 0, 0];
     let randomNo = Math.floor(Math.random() * reelsOfElements.length);
     const noOfElementsInReel = n;
+    const slicingCondition = reelsOfElements.length - n;
 
-    if (randomNo < 18) {
+    if (randomNo < slicingCondition + 1) {
         const getSlicesOfReels = reelsOfElements.slice(randomNo, randomNo + noOfElementsInReel);
         return (getSlicesOfReels);
     }
 
-    else if (randomNo >= 18) {
+    else if (randomNo > slicingCondition) {
         const getSlicesOfReels = reelsOfElements.slice(randomNo, randomNo + noOfElementsInReel);
         const sizeOfReel = getSlicesOfReels.length;
 
-        if (sizeOfReel < 5) {
-            const difference = 5 - sizeOfReel;
+        if (sizeOfReel < n) {
+            const difference = n - sizeOfReel;
             const remainingElementsOfReel = reelsOfElements.slice(0, difference);
             const finalReel = [...getSlicesOfReels, ...remainingElementsOfReel];
             return (finalReel);
         }
     }
 }
+
 
 //---------------------------------------------------------------------------------------
 
@@ -36,11 +38,12 @@ function windowOfReels(m, n) {
         window.push(reels)
     }
 
-    let transposedWindow = JSON.parse(JSON.stringify(window));
+    let transposedWindow = new Array()
 
-    for (let i = 0; i < m; i++) {
+    for (let i = 0; i < n; i++) {
+        transposedWindow.push([])
         for (let j = 0; j < m; j++) {
-            transposedWindow[j][i] = window[i][j];
+            transposedWindow[i][j] = window[j][i];
         }
     }
     return (transposedWindow);
@@ -50,24 +53,31 @@ function windowOfReels(m, n) {
 
 function getPatterns() {
 
-    const storedPatterns = {
-        pattern1: ["00", "01", "02", "03", "04"],
-        pattern2: ["10", "11", "12", "13", "14"],
-        pattern3: ["20", "21", "22", "23", "24"],
-        pattern4: ["00", "11", "22", "13", "04"],
-        pattern5: ["20", "11", "02", "13", "24"],
-        pattern6: ["00", "01", "12", "03", "04"],
-        pattern7: ["20", "21", "12", "23", "24"],
-    }
+    const storedPatterns = [
+
+        ["00", "01", "02", "03", "04"],
+        ["10", "11", "12", "13", "14"],
+        ["20", "21", "22", "23", "24"],
+        ["00", "11", "22", "13", "04"],
+        ["20", "11", "02", "13", "24"],
+        ["00", "01", "12", "03", "04"],
+        ["20", "21", "12", "23", "24"],
+        ["00", "11", "02", "13", "04"],
+        ["10", "01", "12", "03", "14"],
+        ["20", "01", "02", "03", "24"],
+        ["00", "11", "02", "13", "04"],
+        ["00", "11", "02", "13", "04"],
+
+    ];
+
     return (storedPatterns);
 }
 
+//--------------------------------------------------------------------------
 
 function roll() {
 
-    const window = windowOfReels(3, 5);
-    const patterns = getPatterns();
-
+    const window = windowOfReels(5, 3);
     let map = new Map();
 
     for (let i = 0; i < window.length; i++) {
@@ -83,9 +93,26 @@ function roll() {
             }
         }
     }
-    console.log(map);
-    console.log(window);
+    return Array.from(map.values());
+}
+
+//---------------------------------------------------------------------------
+
+function matchPattern() {
+
+    const rolledData = roll();
+    const patterns = getPatterns();
+
+    // console.log(rolledData);
+    // console.log(patterns);
+
+    const filteredArray = rolledData.filter(item => item.length > 2);
+
+    // console.log(filteredArray);
+    const newArray = patterns.filter(item => Object.values(item.pattern1));
+
+    console.log(newArray);
 
 }
 
-roll();
+matchPattern()
