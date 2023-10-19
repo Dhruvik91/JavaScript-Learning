@@ -25,6 +25,8 @@ function getReels(n) {
     }
 }
 
+//---------------------------------------------------------------------------------------
+
 function windowOfReels(m, n) {
 
     let window = new Array();
@@ -39,10 +41,51 @@ function windowOfReels(m, n) {
     for (let i = 0; i < m; i++) {
         for (let j = 0; j < m; j++) {
             transposedWindow[j][i] = window[i][j];
-        } 
+        }
     }
     return (transposedWindow);
 }
 
-console.log(windowOfReels(3,5));
+//---------------------------------------------------------------------------------------
 
+function getPatterns() {
+
+    const storedPatterns = {
+        pattern1: ["00", "01", "02", "03", "04"],
+        pattern2: ["10", "11", "12", "13", "14"],
+        pattern3: ["20", "21", "22", "23", "24"],
+        pattern4: ["00", "11", "22", "13", "04"],
+        pattern5: ["20", "11", "02", "13", "24"],
+        pattern6: ["00", "01", "12", "03", "04"],
+        pattern7: ["20", "21", "12", "23", "24"],
+    }
+    return (storedPatterns);
+}
+
+
+function roll() {
+
+    const window = windowOfReels(3, 5);
+    const patterns = getPatterns();
+
+    let map = new Map();
+
+    for (let i = 0; i < window.length; i++) {
+
+        for (let j = 0; j < window[i].length; j++) {
+            let element = window[i][j];
+
+            if (!map.has(element)) {
+                map.set(element, [`${i}${j}`])
+            }
+            else if (map.has(element)) {
+                map.get(element).push(`${i}${j}`);
+            }
+        }
+    }
+    console.log(map);
+    console.log(window);
+
+}
+
+roll();
