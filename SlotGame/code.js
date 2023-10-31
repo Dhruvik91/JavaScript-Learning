@@ -1,25 +1,27 @@
 /* here is the task of the slot game */
 
 
+const _ = require("lodash");
+
+
 function getReels(n) {
 
-    const reelsOfElements = [0, 3, 1, 0, , 0, 3, 4, 2, 1, 0, 2, 1, 0, 0];
-    let randomNo = Math.floor(Math.random() * reelsOfElements.length);
+    const reelofElements = [0, 3, 1, 0, 0, 3, 4, 2, 1, 0, 2, 1, 0, 0];
+    const shuffleElemenst = _.shuffle(reelofElements)
+    let randomNo = Math.floor(Math.random() * shuffleElemenst.length);
     const noOfElementsInReel = n;
-    const slicingCondition = reelsOfElements.length - n;
+    const slicingCondition = shuffleElemenst.length - n;
+    const getSlicesOfReels = shuffleElemenst.slice(randomNo, randomNo + noOfElementsInReel);
+    const sizeOfReel = getSlicesOfReels.length;
 
     if (randomNo < slicingCondition + 1) {
-        const getSlicesOfReels = reelsOfElements.slice(randomNo, randomNo + noOfElementsInReel);
         return (getSlicesOfReels);
     }
 
     else if (randomNo > slicingCondition) {
-        const getSlicesOfReels = reelsOfElements.slice(randomNo, randomNo + noOfElementsInReel);
-        const sizeOfReel = getSlicesOfReels.length;
-
         if (sizeOfReel < n) {
             const difference = n - sizeOfReel;
-            const remainingElementsOfReel = reelsOfElements.slice(0, difference);
+            const remainingElementsOfReel = shuffleElemenst.slice(0, difference);
             const finalReel = [...getSlicesOfReels, ...remainingElementsOfReel];
             return (finalReel);
         }
@@ -29,11 +31,11 @@ function getReels(n) {
 
 //---------------------------------------------------------------------------------------
 
-function windowOfReels(m, n) {
+function windowOfReels(j, n) {
 
     let window = new Array();
 
-    for (let i = 0; i < m; i++) {
+    for (let i = 0; i < j; i++) {
         let reels = getReels(n);
         window.push(reels)
     }
@@ -42,8 +44,8 @@ function windowOfReels(m, n) {
 
     for (let i = 0; i < n; i++) {
         transposedWindow.push([])
-        for (let j = 0; j < m; j++) {
-            transposedWindow[i][j] = window[j][i];
+        for (let k = 0; k < j; k++) {
+            transposedWindow[i][k] = window[k][i];
         }
     }
     return (transposedWindow);
@@ -66,8 +68,6 @@ function getPatterns() {
         ["10", "01", "12", "03", "14"],
         ["20", "01", "02", "03", "24"],
         ["00", "11", "02", "13", "04"],
-        ["00", "11", "02", "13", "04"],
-
     ];
 
     return (storedPatterns);
@@ -82,14 +82,14 @@ function roll() {
 
     for (let i = 0; i < window.length; i++) {
 
-        for (let j = 0; j < window[i].length; j++) {
-            let element = window[i][j];
+        for (let k = 0; k < window[i].length; k++) {
+            let element = window[i][k];
 
             if (!map.has(element)) {
-                map.set(element, [`${i}${j}`])
+                map.set(element, [`${i}${k}`])
             }
             else if (map.has(element)) {
-                map.get(element).push(`${i}${j}`);
+                map.get(element).push(`${i}${k}`);
             }
         }
     }
@@ -100,19 +100,35 @@ function roll() {
 
 function matchPattern() {
 
-    const rolledData = roll();
+    const sameElementPositions = roll();
     const patterns = getPatterns();
+    const arrayOfItems = sameElementPositions.filter(item => item.length > 2);
 
-    // console.log(rolledData);
-    // console.log(patterns);
+    console.log(arrayOfItems);
 
-    const filteredArray = rolledData.filter(item => item.length > 2);
+    let map = new Map();
 
-    // console.log(filteredArray);
-    const newArray = patterns.filter(item => Object.values(item.pattern1));
 
-    console.log(newArray);
+    for (let i = 0; i < patterns.length; i++) {
 
+        for (let j = 0; j < patterns[i].length; j++) {
+            let count = 0;
+            for (let k = 0; k < arrayOfItems.length; k++) {
+
+                for (let l = 0; l < arrayOfItems[k].length; l++) {
+
+                    if (patterns[i][j] == arrayOfItems[k][l]) {
+                        count++;
+                    }
+                }
+            }
+            if (count >= 3) {
+
+                map.set(i, { pattern: patterns[i], count: count });
+            }
+        }
+
+    }
+    console.log(map);
 }
-
 matchPattern()
