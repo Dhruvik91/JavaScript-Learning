@@ -1,13 +1,12 @@
 /* here is the task of the slot game */
 
-
+ 
 const _ = require("lodash");
-
 
 function getReels(n) {
 
     const reelofElements = [0, 3, 1, 0, 0, 3, 4, 2, 1, 0, 2, 1, 0, 0];
-    const shuffleElemenst = _.shuffle(reelofElements)
+    const shuffleElemenst = _.shuffle(reelofElements);
     let randomNo = Math.floor(Math.random() * shuffleElemenst.length);
     const noOfElementsInReel = n;
     const slicingCondition = shuffleElemenst.length - n;
@@ -15,7 +14,7 @@ function getReels(n) {
     const sizeOfReel = getSlicesOfReels.length;
 
     if (randomNo < slicingCondition + 1) {
-        return (getSlicesOfReels);
+        return getSlicesOfReels;
     }
 
     else if (randomNo > slicingCondition) {
@@ -23,11 +22,10 @@ function getReels(n) {
             const difference = n - sizeOfReel;
             const remainingElementsOfReel = shuffleElemenst.slice(0, difference);
             const finalReel = [...getSlicesOfReels, ...remainingElementsOfReel];
-            return (finalReel);
+            return finalReel;
         }
     }
 }
-
 
 //---------------------------------------------------------------------------------------
 
@@ -35,20 +33,20 @@ function windowOfReels(j, n) {
 
     let window = new Array();
 
-    for (let i = 0; i < j; i++) {
-        let reels = getReels(n);
+    for (let i = 0; i < n; i++) {
+        let reels = getReels(j);
         window.push(reels)
     }
 
     let transposedWindow = new Array()
 
-    for (let i = 0; i < n; i++) {
+    for (let i = 0; i < j; i++) {
         transposedWindow.push([])
-        for (let k = 0; k < j; k++) {
+        for (let k = 0; k < n; k++) {
             transposedWindow[i][k] = window[k][i];
         }
     }
-    return (transposedWindow);
+    return transposedWindow;
 }
 
 //---------------------------------------------------------------------------------------
@@ -70,15 +68,15 @@ function getPatterns() {
         ["00", "11", "02", "13", "04"],
     ];
 
-    return (storedPatterns);
+    return storedPatterns;
 }
 
 //--------------------------------------------------------------------------
 
-function roll(bet) {
+function roll() {
 
-    const window = windowOfReels(5, 3);
-    let map = new Map();
+    const window = windowOfReels(3, 5);
+    const map = new Map();
 
     for (let i = 0; i < window.length; i++) {
 
@@ -102,23 +100,22 @@ function matchPattern() {
 
     const sameElementPositions = roll();
     const patterns = getPatterns();
-    const elements = sameElementPositions.filter(item => item.length > 2);
-    let map = new Map();
+    const uncheckedPatterns = sameElementPositions.filter(item => item.length > 2);
+    const map = new Map();
 
     for (let i = 0; i < patterns.length; i++) {
         let count = 0;
         for (let j = 0; j < patterns[i].length; j++) {
 
-            for (let k = 0; k < elements.length; k++) {
+            for (let k = 0; k < uncheckedPatterns.length; k++) {
 
-                for (let l = 0; l < elements[k].length; l++) {
+                for (let l = 0; l < uncheckedPatterns[k].length; l++) {
 
-                    if (patterns[i][j] == elements[k][l]) {
+                    if (patterns[i][j] == uncheckedPatterns[k][l]) {
                         count++;
                     }
                 }
             }
-
         }
         if (count > 2) {
             map.set(i, { pattern: patterns[i], count: count });
@@ -127,7 +124,14 @@ function matchPattern() {
     return Array.from(map.values());
 }
 
+//----------------------------------------------------------------------------
 
 
 
-
+module.exports = {
+    getReels,
+    windowOfReels,
+    getPatterns,
+    roll,
+    matchPattern,
+  };
