@@ -1,6 +1,7 @@
 const { matchPattern } = require('./utils.js');
 const prompt = require('prompt-sync')({ sigint: true });
 
+
 let totalMoney = 10000;
 
 function countMoney() {
@@ -27,6 +28,11 @@ function checkBalance() {
 
 function Game(bet) {
 
+  if (bet > totalMoney) {
+    console.log(("Add correct amount of bet"));
+    return;
+  }
+
   console.log("Please enter your choice:");
   console.log("1. Roll");
   console.log("2. Check Balance");
@@ -42,7 +48,7 @@ function Game(bet) {
 
       case 1: {
         totalMoney = totalMoney + countMoney() - bet;
-        console.log(totalMoney);
+        
       }
         break;
 
@@ -52,5 +58,5 @@ function Game(bet) {
   }
 }
 
-Game(50000);
+(Game(50));
 
