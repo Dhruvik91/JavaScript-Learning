@@ -75,7 +75,7 @@ function getPatterns() {
 
 //--------------------------------------------------------------------------
 
-function roll() {
+function roll(bet) {
 
     const window = windowOfReels(5, 3);
     let map = new Map();
@@ -102,33 +102,32 @@ function matchPattern() {
 
     const sameElementPositions = roll();
     const patterns = getPatterns();
-    const arrayOfItems = sameElementPositions.filter(item => item.length > 2);
-
-    console.log(arrayOfItems);
-
+    const elements = sameElementPositions.filter(item => item.length > 2);
     let map = new Map();
 
-
     for (let i = 0; i < patterns.length; i++) {
-
+        let count = 0;
         for (let j = 0; j < patterns[i].length; j++) {
-            let count = 0;
-            for (let k = 0; k < arrayOfItems.length; k++) {
 
-                for (let l = 0; l < arrayOfItems[k].length; l++) {
+            for (let k = 0; k < elements.length; k++) {
 
-                    if (patterns[i][j] == arrayOfItems[k][l]) {
+                for (let l = 0; l < elements[k].length; l++) {
+
+                    if (patterns[i][j] == elements[k][l]) {
                         count++;
                     }
                 }
             }
-            if (count >= 3) {
 
-                map.set(i, { pattern: patterns[i], count: count });
-            }
         }
-
+        if (count > 2) {
+            map.set(i, { pattern: patterns[i], count: count });
+        }
     }
-    console.log(map);
+    return Array.from(map.values());
 }
-matchPattern()
+
+
+
+
+
