@@ -1,7 +1,6 @@
 const { matchPattern } = require('./utils.js');
 const prompt = require('prompt-sync')({ sigint: true });
 
-
 let totalMoney = 10000;
 
 function countMoney() {
@@ -15,13 +14,7 @@ function countMoney() {
 //-------------------------------------------------------------------------------------
 
 function checkBalance() {
-
-  if (totalMoney < 0) {
-    return ("Unsucifient Balance!!!");
-  }
-  else {
     return (totalMoney);
-  }
 }
 
 //-------------------------------------------------------------------------------------
@@ -33,7 +26,7 @@ function Game(bet) {
     return;
   }
 
-  console.log("Please enter your choice:");
+  console.log(("Please enter your choice:"));
   console.log("1. Roll");
   console.log("2. Check Balance");
   console.log("3. Add Balance");
@@ -41,22 +34,32 @@ function Game(bet) {
 
   while (true) {
 
-    let choice = +prompt('What is the number?');
+    let choice = +prompt('What is your choice?');
     if (choice == 4) break;
 
     switch (choice) {
 
       case 1: {
-        totalMoney = totalMoney + countMoney() - bet;
-        
-      }
-        break;
+        console.log("These are the winning patterns!! Congrats");
+        const moneyInThisRoll = countMoney();
+        totalMoney = totalMoney + moneyInThisRoll - bet;
+        console.log("THe amount of bet is:", bet);
+        console.log("The money you won in this roll is:", moneyInThisRoll);
+      }break;
 
       case 2: console.log(checkBalance());
+        break;
+
+      case 3: {
+        const requiredMoney = +prompt("How much you want?");
+        totalMoney = totalMoney + requiredMoney;
+      }break;
+
+      default: console.log("Please enter the correct choice!!!");
         break;
     }
   }
 }
 
-(Game(50));
+Game(50);
 
