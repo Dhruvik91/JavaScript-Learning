@@ -31,14 +31,14 @@ function getReels(n) {
 
 function windowOfReels(j, n) {
 
-    let window = new Array();
+    const window = new Array();
 
     for (let i = 0; i < n; i++) {
         let reels = getReels(j);
         window.push(reels)
     }
 
-    let transposedWindow = new Array()
+    const transposedWindow = new Array()
 
     for (let i = 0; i < j; i++) {
         transposedWindow.push([])
@@ -54,7 +54,6 @@ function windowOfReels(j, n) {
 function getPatterns() {
 
     const storedPatterns = [
-
         ["00", "01", "02", "03", "04"],
         ["10", "11", "12", "13", "14"],
         ["20", "21", "22", "23", "24"],
@@ -67,7 +66,6 @@ function getPatterns() {
         ["20", "01", "02", "03", "24"],
         ["00", "11", "02", "13", "04"],
     ];
-
     return storedPatterns;
 }
 
@@ -129,9 +127,5 @@ function matchPattern() {
 
 
 module.exports = {
-    getReels,
-    windowOfReels,
-    getPatterns,
-    roll,
     matchPattern,
   };

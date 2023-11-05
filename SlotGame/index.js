@@ -1,4 +1,4 @@
-const { matchPattern } = require('./utils.js');
+const { matchPattern } = require('./setup.js');
 const prompt = require('prompt-sync')({ sigint: true });
 
 let totalMoney = 10000;
