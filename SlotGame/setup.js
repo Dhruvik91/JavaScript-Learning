@@ -1,11 +1,13 @@
 /* here is the task of the slot game */
 
- 
+
 const _ = require("lodash");
 
+
+// Function to make reel of required size
 function getReel(n) {
 
-    const reelofElements = [0, 3, 1, 0, 0, 3, 4, 2, 1, 0, 2, 1, 0, 0];
+    const reelofElements = [1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 8, 6, 7, 9, 10, 1, 2, 3];
     const shuffledElements = _.shuffle(reelofElements);
     let randomNo = Math.floor(Math.random() * shuffledElements.length);
     const noOfElementsInReel = n;
@@ -27,8 +29,7 @@ function getReel(n) {
     }
 }
 
-//---------------------------------------------------------------------------------------
-
+// Function to make a window of reels 
 function windowOfReels(j, n) {
 
     const window = new Array();
@@ -49,8 +50,7 @@ function windowOfReels(j, n) {
     return transposedWindow;
 }
 
-//---------------------------------------------------------------------------------------
-
+//Function to get predefined patterns 
 function getPatterns() {
 
     const storedPatterns = [
@@ -69,8 +69,7 @@ function getPatterns() {
     return storedPatterns;
 }
 
-//--------------------------------------------------------------------------
-
+// Function to roll the reels and get matching elements position
 function roll() {
 
     const window = windowOfReels(3, 5);
@@ -92,8 +91,7 @@ function roll() {
     return Array.from(map.values());
 }
 
-//---------------------------------------------------------------------------
-
+//Function to match the patterns 
 function matchPattern() {
 
     const sameElementPositions = roll();
@@ -122,8 +120,18 @@ function matchPattern() {
     return Array.from(map.values());
 }
 
-//----------------------------------------------------------------------------
-
+//Function to count money won in the roll
+function countMoney() {
+    const matchedPatterns = matchPattern();
+    if (matchedPatterns.length === 0) {
+        console.log("OOps!!");
+    } else {
+        console.log(matchedPatterns);
+        const countScore = matchedPatterns.reduce((acc, item) => acc + item.count, 0);
+        const money = countScore * 4;
+        return money;
+    }
+}
 module.exports = {
-    matchPattern,
-  };
+    countMoney
+};

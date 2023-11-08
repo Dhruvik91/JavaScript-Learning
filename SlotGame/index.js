@@ -1,44 +1,38 @@
-const { matchPattern } = require('./setup.js');
+const { countMoney } = require('./setup.js');
 const prompt = require('prompt-sync')({ sigint: true });
 
 let totalMoney = 10000;
 
-function countMoney() {
-  const matchedPatterns = matchPattern();
-  console.log(matchedPatterns);
-  const countScore = matchedPatterns.reduce((acc, item) => acc + item.count, 0);
-  const money = countScore * 2;
-  return money;
-}
-
-//-------------------------------------------------------------------------------------
-
+//Function to check balance
 function checkBalance() {
   if (totalMoney <= 0) {
-    return ("Unsufiicient Balance!!!");
+    return ("Unsufiicient Balance!!!, You have only:", totalMoney);
   } else {
     return totalMoney;
   }
 }
 
-//-------------------------------------------------------------------------------------
-
-function addMoney() {
-  const requiredMoney = +prompt("How much you want?");
-  totalMoney = totalMoney + requiredMoney;
-  return totalMoney;
+//Function to check condition of the money added at different places
+function checkConditionFor(money) {
+  if (money <= 0 || isNaN(money)) {
+    return true;
+  }
 }
 
-//-------------------------------------------------------------------------------------
+//Function to add money to the wallet
+function addMoney() {
+  const requiredMoney = +prompt("How much money do you want?");
 
-function Game() {
-
-  const bet = +prompt("How much bet you want to add?");
-
-  if (bet > totalMoney || bet <= 0) {
-    console.log(("Add correct amount of bet"));
-    return;
+  if (checkConditionFor(requiredMoney)) {
+    console.log("Please enter correct amount!!!")
+  } else {
+    totalMoney = totalMoney + requiredMoney;
+    return totalMoney;
   }
+}
+
+//Function to play the game 
+function Game() {
 
   console.log(("Please enter your choice:"));
   console.log("1. Roll");
@@ -54,25 +48,42 @@ function Game() {
     switch (choice) {
 
       case 1: {
-        if (totalMoney < bet || totalMoney <= 0) {
+
+        const bet = +prompt("How much bet you want to add?");
+
+        if (bet > totalMoney || checkConditionFor(bet)) {
+          console.log(("Add correct amount of bet"));
+          return;
+        }
+
+        if (checkConditionFor(totalMoney)) {
           console.log("You dont have enough money!!!");
           console.log('\n');
-          console.log("Do you want to add money??");
-          addMoney();
+          const usersAnswer = prompt("Do you want to add money??", "Yes or No");
+
+          if (usersAnswer == "yes" || usersAnswer == "Yes") {
+            addMoney();
+          } else {
+            return;
+          }
         }
-        console.log("These are the winning patterns!! Congrats");
+
         const moneyInThisRoll = countMoney();
-        totalMoney = totalMoney + moneyInThisRoll - bet;
-        console.log("The amount of bet is:", bet);
-        console.log("The money you won in this roll is:", moneyInThisRoll);
+        if (isNaN(moneyInThisRoll)) {
+          console.log("sorry, you missed this roll winning");
+        } else {
+          console.log("These are the winning patterns!! Congrats");
+          totalMoney = totalMoney + moneyInThisRoll - bet;
+          console.log("The amount of bet is:", bet);
+          console.log("The money you won in this roll is:", moneyInThisRoll);
+        }
       } break;
 
       case 2: console.log(checkBalance());
         break;
 
-      case 3: {
-        (addMoney());
-      } break;
+      case 3: addMoney();
+        break;
 
       default: console.log("Please enter the correct choice!!!");
         break;
