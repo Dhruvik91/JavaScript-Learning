@@ -14,14 +14,28 @@ function countMoney() {
 //-------------------------------------------------------------------------------------
 
 function checkBalance() {
-    return (totalMoney);
+  if (totalMoney <= 0) {
+    return ("Unsufiicient Balance!!!");
+  } else {
+    return totalMoney;
+  }
 }
 
 //-------------------------------------------------------------------------------------
 
-function Game(bet) {
+function addMoney() {
+  const requiredMoney = +prompt("How much you want?");
+  totalMoney = totalMoney + requiredMoney;
+  return totalMoney;
+}
 
-  if (bet > totalMoney) {
+//-------------------------------------------------------------------------------------
+
+function Game() {
+
+  const bet = +prompt("How much bet you want to add?");
+
+  if (bet > totalMoney || bet <= 0) {
     console.log(("Add correct amount of bet"));
     return;
   }
@@ -40,20 +54,25 @@ function Game(bet) {
     switch (choice) {
 
       case 1: {
+        if (totalMoney < bet || totalMoney <= 0) {
+          console.log("You dont have enough money!!!");
+          console.log('\n');
+          console.log("Do you want to add money??");
+          addMoney();
+        }
         console.log("These are the winning patterns!! Congrats");
         const moneyInThisRoll = countMoney();
         totalMoney = totalMoney + moneyInThisRoll - bet;
-        console.log("THe amount of bet is:", bet);
+        console.log("The amount of bet is:", bet);
         console.log("The money you won in this roll is:", moneyInThisRoll);
-      }break;
+      } break;
 
       case 2: console.log(checkBalance());
         break;
 
       case 3: {
-        const requiredMoney = +prompt("How much you want?");
-        totalMoney = totalMoney + requiredMoney;
-      }break;
+        (addMoney());
+      } break;
 
       default: console.log("Please enter the correct choice!!!");
         break;
@@ -61,5 +80,5 @@ function Game(bet) {
   }
 }
 
-Game(50);
+Game();
 

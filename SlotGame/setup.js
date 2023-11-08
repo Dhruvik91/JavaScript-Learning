@@ -3,14 +3,14 @@
  
 const _ = require("lodash");
 
-function getReels(n) {
+function getReel(n) {
 
     const reelofElements = [0, 3, 1, 0, 0, 3, 4, 2, 1, 0, 2, 1, 0, 0];
-    const shuffleElemenst = _.shuffle(reelofElements);
-    let randomNo = Math.floor(Math.random() * shuffleElemenst.length);
+    const shuffledElements = _.shuffle(reelofElements);
+    let randomNo = Math.floor(Math.random() * shuffledElements.length);
     const noOfElementsInReel = n;
-    const slicingCondition = shuffleElemenst.length - n;
-    const getSlicesOfReels = shuffleElemenst.slice(randomNo, randomNo + noOfElementsInReel);
+    const slicingCondition = shuffledElements.length - n;
+    const getSlicesOfReels = shuffledElements.slice(randomNo, randomNo + noOfElementsInReel);
     const sizeOfReel = getSlicesOfReels.length;
 
     if (randomNo < slicingCondition + 1) {
@@ -20,7 +20,7 @@ function getReels(n) {
     else if (randomNo > slicingCondition) {
         if (sizeOfReel < n) {
             const difference = n - sizeOfReel;
-            const remainingElementsOfReel = shuffleElemenst.slice(0, difference);
+            const remainingElementsOfReel = shuffledElements.slice(0, difference);
             const finalReel = [...getSlicesOfReels, ...remainingElementsOfReel];
             return finalReel;
         }
@@ -34,7 +34,7 @@ function windowOfReels(j, n) {
     const window = new Array();
 
     for (let i = 0; i < n; i++) {
-        let reels = getReels(j);
+        let reels = getReel(j);
         window.push(reels)
     }
 
@@ -123,8 +123,6 @@ function matchPattern() {
 }
 
 //----------------------------------------------------------------------------
-
-
 
 module.exports = {
     matchPattern,
