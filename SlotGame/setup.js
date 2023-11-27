@@ -1,15 +1,53 @@
 /* here is the task of the slot game */
-
-
 const _ = require("lodash");
 
 
-// Function to make reel of required size
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+// Function to create reel 
+function createReel(n, ...probabilities) {
+
+    const arrayOfProbabilities = [...probabilities];
+    if (arrayOfProbabilities.reduce((sum, acc) => (sum + acc), 0) > 100) {
+        return "Enter correct probabilities";
+    }
+
+    const totalSizeOfReel = n;
+    const requiredReel = new Array();
+
+    for (let probability of probabilities) {
+
+        const numberOfElementFromProbabilities = Math.floor((probability * totalSizeOfReel) / 100);
+
+        for (let i = 0; i < numberOfElementFromProbabilities; i++) {
+
+            if (probabilities[0] == probability) {
+                let element = getRandomIntInclusive(1, 5);
+                requiredReel.push(element);
+            }
+            if (probabilities[1] == probability) {
+                let element = getRandomIntInclusive(6, 8);
+                requiredReel.push(element);
+            }
+            if (probabilities[2] == probability) {
+                let element = getRandomIntInclusive(9, 10);
+                requiredReel.push(element);
+            }
+        }
+    }
+    return requiredReel;
+}
+
+// Function to make reel of required size and shuffled elements
 function getReel(n) {
 
-    const reelofElements = [1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 6, 7, 8, 6, 7, 9, 10, 1, 2, 3];
+    const reelofElements = createReel(10, 40, 50, 10);
     const shuffledElements = _.shuffle(reelofElements);
-    let randomNo = Math.floor(Math.random() * shuffledElements.length);
+    const randomNo = Math.floor(Math.random() * shuffledElements.length);
     const noOfElementsInReel = n;
     const slicingCondition = shuffledElements.length - n;
     const getSlicesOfReels = shuffledElements.slice(randomNo, randomNo + noOfElementsInReel);
@@ -88,13 +126,14 @@ function roll() {
             }
         }
     }
-    return Array.from(map.values());
+    return map;
 }
 
 //Function to match the patterns 
 function matchPattern() {
 
-    const sameElementPositions = roll();
+    const mapElements = roll();
+    const sameElementPositions = Array.from(mapElements.values());
     const patterns = getPatterns();
     const uncheckedPatterns = sameElementPositions.filter(item => item.length > 2);
     const map = new Map();
@@ -124,7 +163,7 @@ function matchPattern() {
 function countMoney() {
     const matchedPatterns = matchPattern();
     if (matchedPatterns.length === 0) {
-        console.log("OOps!!");
+        return ("Oops!!");
     } else {
         console.log(matchedPatterns);
         const countScore = matchedPatterns.reduce((acc, item) => acc + item.count, 0);
@@ -132,6 +171,7 @@ function countMoney() {
         return money;
     }
 }
+
 module.exports = {
     countMoney
 };

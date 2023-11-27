@@ -32,7 +32,7 @@ function addMoney() {
 }
 
 //Function to play the game 
-function Game() {
+function Game(bet) {
 
   console.log(("Please enter your choice:"));
   console.log("1. Roll");
@@ -49,14 +49,13 @@ function Game() {
 
       case 1: {
 
-        const bet = +prompt("How much bet you want to add?");
-
-        if (bet > totalMoney || checkConditionFor(bet)) {
+        // const bet = +prompt("How much bet you want to add?");
+       /*  if () {
           console.log(("Add correct amount of bet"));
           return;
-        }
+        } */
 
-        if (checkConditionFor(totalMoney)) {
+        if (checkConditionFor(totalMoney) || bet > totalMoney || checkConditionFor(bet)) {
           console.log("You dont have enough money!!!");
           console.log('\n');
           const usersAnswer = prompt("Do you want to add money??", "Yes or No");
@@ -64,13 +63,14 @@ function Game() {
           if (usersAnswer == "yes" || usersAnswer == "Yes") {
             addMoney();
           } else {
-            return;
+            break;
           }
         }
 
         const moneyInThisRoll = countMoney();
         if (isNaN(moneyInThisRoll)) {
           console.log("sorry, you missed this roll winning");
+          totalMoney = totalMoney - bet;
         } else {
           console.log("These are the winning patterns!! Congrats");
           totalMoney = totalMoney + moneyInThisRoll - bet;
@@ -91,5 +91,5 @@ function Game() {
   }
 }
 
-Game();
+Game(50);
 
