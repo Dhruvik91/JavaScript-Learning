@@ -9,37 +9,22 @@ function getRandomIntInclusive(min, max) {
 }
 
 // Function to create reel 
-function createReel(n, ...probabilities) {
+function createReel(n) {
 
-    const arrayOfProbabilities = [...probabilities];
-    const sum = arrayOfProbabilities.reduce((sum, acc) => sum + acc, 0);
-
-    if (sum > 100 || sum < 100) {
-        console.log("Enter correct probabilities");
-        return;
-    }
-
-    const totalSizeOfReel = n;
+    const probabilities = {
+        50: { min: 1, max: 5 },
+        40: { min: 6, max: 8 },
+        10: { min: 9, max: 10 }
+    };
     const requiredReel = new Array();
 
-    for (let probability of probabilities) {
+    for (let [key, value] of Object.entries(probabilities)) {
 
-        const numberOfElementFromProbabilities = Math.floor((probability * totalSizeOfReel) / 100);
+        const numberOfElement = Math.floor(key * n) / 100;
 
-        for (let i = 0; i < numberOfElementFromProbabilities; i++) {
-
-            if (probabilities[0] == probability) {
-                let element = getRandomIntInclusive(1, 5);
-                requiredReel.push(element);
-            }
-            if (probabilities[1] == probability) {
-                let element = getRandomIntInclusive(6, 8);
-                requiredReel.push(element);
-            }
-            if (probabilities[2] == probability) {
-                let element = getRandomIntInclusive(9, 10);
-                requiredReel.push(element);
-            }
+        for (let i = 0; i < numberOfElement; i++) {
+            let element = getRandomIntInclusive(value.min, value.max);
+            requiredReel.push(element);
         }
     }
     return requiredReel;
@@ -48,7 +33,7 @@ function createReel(n, ...probabilities) {
 // Function to make reel of required size and shuffled elements
 function getReel(n) {
 
-    const reelofElements = createReel(20, 50, 40, 10);
+    const reelofElements = createReel(20);
     const shuffledElements = _.shuffle(reelofElements);
     const randomNo = Math.floor(Math.random() * shuffledElements.length);
     const noOfElementsInReel = n;
@@ -152,10 +137,10 @@ function matchPattern() {
     const map = new Map();
 
     for (let i = 0; i < patterns.length; i++) {
-        let count = 0;
-        for (let j = 0; j < patterns[i].length; j++) {
 
-            for (let k = 0; k < uncheckedPatterns.length; k++) {
+        for (let k = 0; k < uncheckedPatterns.length; k++) {
+            let count = 0;
+            for (let j = 0; j < patterns[i].length; j++) {
 
                 for (let l = 0; l < uncheckedPatterns[k].length; l++) {
 
@@ -164,10 +149,11 @@ function matchPattern() {
                     }
                 }
             }
+            if (count > 2) {
+                map.set(i, { patternChecked: uncheckedPatterns[k], count: count, patternMatched: patterns[i], });
+            }
         }
-        if (count > 2) {
-            map.set(i, { pattern: patterns[i], count: count });
-        }
+
     }
     return Array.from(map.values());
 }
