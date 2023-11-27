@@ -91,5 +91,5 @@ function Game(bet) {
   }
 }
 
-Game(50);
+Game(75);
 

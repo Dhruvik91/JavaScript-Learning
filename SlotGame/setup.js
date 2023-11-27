@@ -12,8 +12,11 @@ function getRandomIntInclusive(min, max) {
 function createReel(n, ...probabilities) {
 
     const arrayOfProbabilities = [...probabilities];
-    if (arrayOfProbabilities.reduce((sum, acc) => (sum + acc), 0) > 100) {
-        return "Enter correct probabilities";
+    const sum = arrayOfProbabilities.reduce((sum, acc) => sum + acc, 0);
+
+    if (sum > 100 || sum < 100) {
+        console.log("Enter correct probabilities");
+        return;
     }
 
     const totalSizeOfReel = n;
@@ -45,7 +48,7 @@ function createReel(n, ...probabilities) {
 // Function to make reel of required size and shuffled elements
 function getReel(n) {
 
-    const reelofElements = createReel(10, 40, 50, 10);
+    const reelofElements = createReel(20, 50, 40, 10);
     const shuffledElements = _.shuffle(reelofElements);
     const randomNo = Math.floor(Math.random() * shuffledElements.length);
     const noOfElementsInReel = n;
@@ -111,6 +114,7 @@ function getPatterns() {
 function roll() {
 
     const window = windowOfReels(3, 5);
+    console.log(window);
     const map = new Map();
 
     for (let i = 0; i < window.length; i++) {
@@ -132,8 +136,17 @@ function roll() {
 //Function to match the patterns 
 function matchPattern() {
 
-    const mapElements = roll();
-    const sameElementPositions = Array.from(mapElements.values());
+    const mapOfElements = roll();
+    let obj = {};
+
+    for (let [key, value] of mapOfElements.entries()) {
+        obj[key] = value;
+    }
+    console.log(obj);
+
+    const sameElementPositions = Array.from(mapOfElements.values());
+    const somekeys = Array.from(mapOfElements.keys());
+    // console.log(somekeys);
     const patterns = getPatterns();
     const uncheckedPatterns = sameElementPositions.filter(item => item.length > 2);
     const map = new Map();
@@ -158,6 +171,8 @@ function matchPattern() {
     }
     return Array.from(map.values());
 }
+
+console.log(matchPattern());
 
 //Function to count money won in the roll
 function countMoney() {
