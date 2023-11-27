@@ -18,12 +18,12 @@ function createReel(n) {
     };
     const requiredReel = new Array();
 
-    for (let [key, value] of Object.entries(probabilities)) {
+    for (let [element, pattern] of Object.entries(probabilities)) {
 
-        const numberOfElement = Math.floor(key * n) / 100;
+        const numberOfElement = Math.floor(element * n) / 100;
 
         for (let i = 0; i < numberOfElement; i++) {
-            let element = getRandomIntInclusive(value.min, value.max);
+            let element = getRandomIntInclusive(pattern.min, pattern.max);
             requiredReel.push(element);
         }
     }
@@ -99,7 +99,6 @@ function getPatterns() {
 function roll() {
 
     const window = windowOfReels(3, 5);
-    console.log(window);
     const map = new Map();
 
     for (let i = 0; i < window.length; i++) {
@@ -121,17 +120,8 @@ function roll() {
 //Function to match the patterns 
 function matchPattern() {
 
-    const mapOfElements = roll();
-    let obj = {};
-
-    for (let [key, value] of mapOfElements.entries()) {
-        obj[key] = value;
-    }
-    console.log(obj);
-
-    const sameElementPositions = Array.from(mapOfElements.values());
-    const somekeys = Array.from(mapOfElements.keys());
-    // console.log(somekeys);
+    const mapOfUncheckedElements = roll();
+    const sameElementPositions = Array.from(mapOfUncheckedElements.values());
     const patterns = getPatterns();
     const uncheckedPatterns = sameElementPositions.filter(item => item.length > 2);
     const map = new Map();
@@ -150,15 +140,24 @@ function matchPattern() {
                 }
             }
             if (count > 2) {
-                map.set(i, { patternChecked: uncheckedPatterns[k], count: count, patternMatched: patterns[i], });
+                map.set(i, { patternNo: i, pattern: patterns[i], count: count, patternChecked: uncheckedPatterns[k], });
             }
         }
 
     }
-    return Array.from(map.values());
-}
+    const matchedPatternsData = Array.from(map.values());
+    const winningElements = new Array();
 
-console.log(matchPattern());
+    for (let [element, pattern] of mapOfUncheckedElements.entries()) {
+        matchedPatternsData.forEach((item) => {
+            if (item.patternChecked == pattern) {
+                winningElements.push(element);
+            }
+        })
+    }
+    console.log(winningElements);
+    return matchedPatternsData;
+}
 
 //Function to count money won in the roll
 function countMoney() {
@@ -168,7 +167,7 @@ function countMoney() {
     } else {
         console.log(matchedPatterns);
         const countScore = matchedPatterns.reduce((acc, item) => acc + item.count, 0);
-        const money = countScore * 4;
+        const money = countScore * 5;
         return money;
     }
 }
