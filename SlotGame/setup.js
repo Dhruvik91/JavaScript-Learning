@@ -18,12 +18,12 @@ function createReel(n) {
     };
     const requiredReel = new Array();
 
-    for (let [element, pattern] of Object.entries(probabilities)) {
+    for (let [probability, value] of Object.entries(probabilities)) {
 
-        const numberOfElement = Math.floor(element * n) / 100;
+        const numberOfElement = Math.floor(probability * n) / 100;
 
         for (let i = 0; i < numberOfElement; i++) {
-            let element = getRandomIntInclusive(pattern.min, pattern.max);
+            let element = getRandomIntInclusive(value.min, value.max);
             requiredReel.push(element);
         }
     }
@@ -140,22 +140,21 @@ function matchPattern() {
                 }
             }
             if (count > 2) {
-                map.set(i, { patternNo: i, pattern: patterns[i], count: count, patternChecked: uncheckedPatterns[k], });
+                map.set(i, { patternNo: i, value: patterns[i], count: count, patternChecked: uncheckedPatterns[k], });
             }
         }
 
     }
-    const matchedPatternsData = Array.from(map.values());
-    const winningElements = new Array();
 
-    for (let [element, pattern] of mapOfUncheckedElements.entries()) {
+    const matchedPatternsData = Array.from(map.values());
+    for (let [element, value] of mapOfUncheckedElements.entries()) {
         matchedPatternsData.forEach((item) => {
-            if (item.patternChecked == pattern) {
-                winningElements.push(element);
+            if (item.patternChecked == value) {
+                item.elementValue = element;
+
             }
         })
     }
-    console.log(winningElements);
     return matchedPatternsData;
 }
 
@@ -166,8 +165,21 @@ function countMoney() {
         return ("Oops!!");
     } else {
         console.log(matchedPatterns);
-        const countScore = matchedPatterns.reduce((acc, item) => acc + item.count, 0);
-        const money = countScore * 5;
+        const elementsPrice = {
+            5: [1, 2, 3, 4, 5],
+            6: [6, 7, 8],
+            9: [9, 10]
+        };
+
+        let countScore = 0, money = 0;
+        for (let [price, items] of Object.entries(elementsPrice)) {
+            matchedPatterns.forEach((item) => {
+                if (items.includes(item.elementValue)) {
+                    countScore = item.count;
+                    money += countScore * price;
+                }
+            })
+        }
         return money;
     }
 }
