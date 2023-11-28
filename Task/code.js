@@ -5,8 +5,9 @@ Output1: Print Total input string length
 Output2: [{ a: 5 }, { b: 2 }, { r: 2 }, { d: 1 }, { k: 1 }];
 Time to complete this task : 30 mins */
 
+const _ = require("lodash");
 
-function countNumber(s) {
+/* function countNumber(s) {
 
     let newString = s.toLowerCase();
 
@@ -29,10 +30,14 @@ function countNumber(s) {
     console.log(Array.from(map.values()));
     
 
-}
+} */
 
 
 
-let a = "Abra ka dabra";
+/* let a = "Abra ka dabra";
 
-console.log(countNumber(a));
+console.log(countNumber(a)); */
+
+let arr = _.chunk([1,2,3], 1);
+
+console.log(arr);
