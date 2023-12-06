@@ -54,7 +54,7 @@ function convertToRoman(num) {
                     if (noToAddAtLast >= 10 && noToAddAtLast <= 30) {
                         forNoOfX = Math.ceil(noToAddAtLast / Math.pow(10, i + 1));
                     } else {
-                        forNoOfX = Math.ceil(noToAddAtLast / Math.pow(10, j));
+                        forNoOfX = Math.ceil(noToAddAtLast / Math.pow(10, i + 2));
                     }
 
                     // this loop will add the number of 10,100,1000 (X,C,M) after first letter
@@ -78,6 +78,6 @@ function convertToRoman(num) {
     return (finalStr);
 }
 
-convertToRoman(83);
+convertToRoman(860);
 
 
