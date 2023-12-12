@@ -48,9 +48,10 @@ function verifyIndicsOfLetters(userWord) {
     return checkedLettersPosition;
 }
 
-module.export = {
+module.exports = {
     correctWord,
-    verifyIndicsOfLetters
+    verifyIndicsOfLetters,
+    verifyWord
 };
 
 
